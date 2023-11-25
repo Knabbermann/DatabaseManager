@@ -4,17 +4,11 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class ReviewRepository : Repository<Review>, IReviewRepository
+    public class ReviewRepository(WebDbContext webDbContext) : Repository<Review>(webDbContext), IReviewRepository
     {
-        private readonly WebDbContext _webDbContext;
-        public ReviewRepository(WebDbContext webDbContext) : base(webDbContext)
-        {
-            _webDbContext = webDbContext;
-        }
         public void Update(Review review)
         {
-            _webDbContext.Update(review);
-            _webDbContext.SaveChanges();
+            webDbContext.Update(review);
         }
     }
 }

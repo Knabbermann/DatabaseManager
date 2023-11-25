@@ -1,0 +1,98 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Tables.Customer.IndexModel
+@{
+}
+<div class="container-fluid p-5">
+    <input type="hidden" value="@Model.Customers" />
+    <div class="row pt-4 align-items-center">
+        <div class="col-6">
+            <h2 class="text-primary">@Model.ToString() List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-primary" asp-page="/Tables/Customer/Add">
+                <i class="bi bi-plus-square"></i> &nbsp;Add New @Model.ToString()
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr class="table-primary">
+                <th>
+                    Id
+                </th>
+                <th>
+                    FirstName
+                </th>
+                <th>
+                    LastName
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    DateOfBirth
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    IsActive
+                </th>
+                <th>
+                    GcRecord
+                </th>
+                <th class="fst-italic">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.Customers)
+            {
+                <input type="hidden" value="@obj.Id" />
+                <tr>
+                    <td width="10%">
+                        @obj.Id
+                    </td>
+                    <td width="10%">
+                        @obj.FirstName
+                    </td>
+                    <td width="10%">
+                        @obj.LastName
+                    </td>
+                    <td width="10%">
+                        @obj.Gender
+                    </td>
+                    <td width="10%">
+                        @obj.DateOfBirth
+                    </td>
+                    <td width="10%">
+                        @obj.Email
+                    </td>
+                    <td width="10%">
+                        @obj.IsActive
+                    </td>
+                    <td width="10%">
+                        @obj.GcRecord
+                    </td>
+                    <td width="20%">
+                        <div class="d-flex justify-content-evenly">
+                            <a class="btn btn-outline-warning" asp-page="/Tables/Customer/Edit" asp-route-id="@obj.Id">
+                                <i class="bi bi-pencil-square"></i>&nbsp;Edit
+                            </a>
+                            <form asp-page-handler="Remove" asp-route-id="@obj.Id" method="post">
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Do you really want to delete the customer with id @obj.Id?');">
+                                    <div class="d-flex justify-content-center">
+                                        <i class="bi bi-x-square"></i>&nbsp;Remove
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -4,19 +4,11 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class PaymentRepository : Repository<Payment>, IPaymentRepository
+    public class PaymentRepository(WebDbContext webDbContext) : Repository<Payment>(webDbContext), IPaymentRepository
     {
-        private readonly WebDbContext _webDbContext;
-
-        public PaymentRepository(WebDbContext webDbContext) : base(webDbContext)
-        {
-            _webDbContext = webDbContext;
-        }
-
         public void Update(Payment payment)
         {
-            _webDbContext.Update(payment);
-            _webDbContext.SaveChanges();
+            webDbContext.Update(payment);
         }
     }
 }

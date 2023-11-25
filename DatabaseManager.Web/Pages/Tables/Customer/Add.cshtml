@@ -1,0 +1,146 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Tables.Customer.AddModel
+@{
+}
+
+<div class="container p-3">
+    <form method="post">
+        <div class="row pt-4 align-items-center">
+            <div class="row pb-2">
+                <h2 class="text-primary">Add @Model.ToString()</h2>
+                <hr />
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.FirstName" class="form-control" aria-required="true" />
+                <label asp-for="CCustomer.FirstName"></label>
+                <span asp-validation-for="CCustomer.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.LastName" class="form-control" aria-required="true" />
+                <label asp-for="CCustomer.LastName"></label>
+                <span asp-validation-for="CCustomer.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.Email" class="form-control" aria-required="true" />
+                <label asp-for="CCustomer.Email"></label>
+                <span asp-validation-for="CCustomer.Email" class="text-danger"></span>
+            </div>
+            <p>Optional:</p>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.MiddleName" class="form-control" />
+                <label asp-for="CCustomer.MiddleName"></label>
+                <span asp-validation-for="CCustomer.MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.SecondaryEmail" class="form-control" />
+                <label asp-for="CCustomer.SecondaryEmail"></label>
+                <span asp-validation-for="CCustomer.SecondaryEmail" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.PhoneNumber" class="form-control" />
+                <label asp-for="CCustomer.PhoneNumber"></label>
+                <span asp-validation-for="CCustomer.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.SecondaryPhoneNumber" class="form-control" />
+                <label asp-for="CCustomer.SecondaryPhoneNumber"></label>
+                <span asp-validation-for="CCustomer.SecondaryPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.DateOfBirth" class="form-control" type="date" />
+                <label asp-for="CCustomer.DateOfBirth"></label>
+                <span asp-validation-for="CCustomer.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <select asp-for="CCustomer.Gender" class="form-control">
+                    <option value="">Select</option>
+                    @foreach (var option in Utilities.StaticDetails.GenderOptions)
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                </select>
+                <label asp-for="CCustomer.Gender"></label>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.Nationality" class="form-control" />
+                <label asp-for="CCustomer.Nationality"></label>
+                <span asp-validation-for="CCustomer.Nationality" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.AddressLine1" class="form-control" />
+                <label asp-for="CCustomer.AddressLine1"></label>
+                <span asp-validation-for="CCustomer.AddressLine1" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.AddressLine2" class="form-control" />
+                <label asp-for="CCustomer.AddressLine2"></label>
+                <span asp-validation-for="CCustomer.AddressLine2" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.City" class="form-control" />
+                <label asp-for="CCustomer.City"></label>
+                <span asp-validation-for="CCustomer.City" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.State" class="form-control" />
+                <label asp-for="CCustomer.State"></label>
+                <span asp-validation-for="CCustomer.State" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.Country" class="form-control" />
+                <label asp-for="CCustomer.Country"></label>
+                <span asp-validation-for="CCustomer.Country" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.PostalCode" class="form-control" />
+                <label asp-for="CCustomer.PostalCode"></label>
+                <span asp-validation-for="CCustomer.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-check py-2 col-4">
+                <input asp-for="CCustomer.IsActive" class="form-check-input" type="checkbox" />
+                <label asp-for="CCustomer.IsActive" class="form-check-label"></label>
+                <span asp-validation-for="CCustomer.IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.LastOnline" class="form-control" type="date" />
+                <label asp-for="CCustomer.LastOnline"></label>
+                <span asp-validation-for="CCustomer.LastOnline" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.CreatedAt" class="form-control" type="date" />
+                <label asp-for="CCustomer.CreatedAt"></label>
+                <span asp-validation-for="CCustomer.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.UpdatedAt" class="form-control" type="date" />
+                <label asp-for="CCustomer.UpdatedAt"></label>
+                <span asp-validation-for="CCustomer.UpdatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.PreferredLanguage" class="form-control" />
+                <label asp-for="CCustomer.PreferredLanguage"></label>
+                <span asp-validation-for="CCustomer.PreferredLanguage" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CCustomer.PreferredPaymentMethod" class="form-control" />
+                <label asp-for="CCustomer.PreferredPaymentMethod"></label>
+                <span asp-validation-for="CCustomer.PreferredPaymentMethod" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+            </div>
+            <div class="form-floating py-2 col-6">
+                <button class="w-100 btn btn-lg btn-primary" asp-page="/Tables/Customer/Add">Add Customer</button>
+            </div>
+            <div class="form-floating py-2 col-6">
+                <a class="btn btn-outline-secondary w-100" asp-page="/Tables/Customer/Index">Back to list</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

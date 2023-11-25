@@ -4,19 +4,11 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class CustomerRepository : Repository<Customer>, ICustomerRepository
+    public class CustomerRepository(WebDbContext webDbContext) : Repository<Customer>(webDbContext), ICustomerRepository
     {
-        private readonly WebDbContext _webDbContext;
-
-        public CustomerRepository(WebDbContext webDbContext) : base(webDbContext)
-        {
-            _webDbContext = webDbContext;
-        }
-
         public void Update(Customer customer)
         {
-            _webDbContext.Update(customer);
-            _webDbContext.SaveChanges();
+            webDbContext.Update(customer);
         }
     }
 }

@@ -1,6 +1,7 @@
 using DatabaseManager.DataAccess.DbContext;
 using DatabaseManager.DataAccess.Repository;
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
 
@@ -14,17 +15,17 @@ builder.Services.AddDbContext<WebDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<Customer>();
+builder.Services.AddScoped<Order>();
+builder.Services.AddScoped<OrderItem>();
+builder.Services.AddScoped<Payment>();
+builder.Services.AddScoped<Product>();
+builder.Services.AddScoped<Review>();
 builder.Services.AddRazorPages().AddNToastNotifyToastr(new ToastrOptions
 {
     ProgressBar = true,
     TimeOut = 5000,
     PositionClass = "toast-bottom-right"
-});
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = $"/Identity/Account/Login";
-    options.LogoutPath = $"/Identity/Account/Logout";
-    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
 
 var app = builder.Build();

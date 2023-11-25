@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManager.Web", "DatabaseManager.Web\DatabaseManager.Web.csproj", "{37E5C6F3-4155-4686-A744-D042DA855964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseManager.Web", "DatabaseManager.Web\DatabaseManager.Web.csproj", "{37E5C6F3-4155-4686-A744-D042DA855964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManager.Models", "DatabaseManager.Models\DatabaseManager.Models.csproj", "{A1D688DD-3E56-4DC5-9E0B-ADCD179DBF86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseManager.Models", "DatabaseManager.Models\DatabaseManager.Models.csproj", "{A1D688DD-3E56-4DC5-9E0B-ADCD179DBF86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManager.DataAccess", "DatabaseManager.DataAccess\DatabaseManager.DataAccess.csproj", "{4EB10133-4D11-4A6D-AE65-0B6EAF7EA891}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseManager.DataAccess", "DatabaseManager.DataAccess\DatabaseManager.DataAccess.csproj", "{4EB10133-4D11-4A6D-AE65-0B6EAF7EA891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManager.Utilities", "DatabaseManager.Utilities\DatabaseManager.Utilities.csproj", "{689CA4B2-108F-4CD9-95FF-AF23FE9BF224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseManager.Utilities", "DatabaseManager.Utilities\DatabaseManager.Utilities.csproj", "{689CA4B2-108F-4CD9-95FF-AF23FE9BF224}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
