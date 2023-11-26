@@ -30,7 +30,6 @@
     <Folder Include="Pages\Tables\Product\" />
     <Folder Include="Pages\Tables\Payment\" />
     <Folder Include="Pages\Tables\OrderItem\" />
-    <Folder Include="Pages\Tables\Order\" />
   </ItemGroup>
 
 </Project>

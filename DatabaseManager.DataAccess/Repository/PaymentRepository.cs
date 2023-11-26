@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class PaymentRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Payment>(webDbContext), 
+    public class PaymentRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Payment>(webDbContext, unitOfWork), 
         IPaymentRepository
     {
         public Payment? Update(Payment cPayment)

@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class ProductRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Product>(webDbContext), 
+    public class ProductRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Product>(webDbContext, unitOfWork), 
         IProductRepository
     {
         public Product? Update(Product cProduct)

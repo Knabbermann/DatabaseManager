@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class ReviewRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Review>(webDbContext), 
+    public class ReviewRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Review>(webDbContext, unitOfWork), 
         IReviewRepository
     {
         public Review? Update(Review cReview)

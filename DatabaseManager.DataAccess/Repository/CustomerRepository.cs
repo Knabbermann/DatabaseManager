@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class CustomerRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Customer>(webDbContext),
+    public class CustomerRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Customer>(webDbContext, unitOfWork),
         ICustomerRepository
     {
         public Customer? Update(Customer cCustomer)

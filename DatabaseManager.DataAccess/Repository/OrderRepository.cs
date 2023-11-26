@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class OrderRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Order>(webDbContext),
+    public class OrderRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Order>(webDbContext, unitOfWork),
         IOrderRepository
     {
         public Order? Update(Order cOrder)

@@ -9,10 +9,18 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
     {
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Customer> Customers { get; set; } = customers;
-
+        [BindProperty(SupportsGet = true)]
+        public int RowCount { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int ColumnCount { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int UsedSpace { get; set; }
         public void OnGet()
         {
             Customers = unitOfWork.Customer.GetAll();
+            RowCount = unitOfWork.Customer.GetRowCount();
+            ColumnCount = unitOfWork.Customer.GetColumnCount();
+            UsedSpace = unitOfWork.Customer.GetUsedSpace();
         }
 
         public IActionResult OnPostRemove(int id)
