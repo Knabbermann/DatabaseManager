@@ -41,16 +41,13 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
             ModelState.Remove("cCustomer.GcRecord");
             if (ModelState.IsValid)
             {
-                var uCustomer = unitOfWork.Customer.GetFirstOrDefault(x => x.Id == cCustomer.Id);
+                var uCustomer = unitOfWork.Customer.Update(cCustomer);
                 if (uCustomer == null)
                 {
                     toastNotification.AddErrorToastMessage($"Could not found Customer with Id {cCustomer.Id}!");
                     return RedirectToPage("/Tables/Customer/Index");
                 }
-                var config = new MapperConfiguration(x => x.CreateMap<Models.Customer, Models.Customer>());
-                var mapper = config.CreateMapper();
-                mapper.Map(cCustomer, uCustomer);
-                unitOfWork.Customer.Update(uCustomer);
+                
                 unitOfWork.SaveChanges();
                 toastNotification.AddSuccessToastMessage("Successfully edited Customer.");
                 return RedirectToPage("/Tables/Customer/Index");

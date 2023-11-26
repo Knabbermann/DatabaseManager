@@ -1,16 +1,29 @@
 ﻿using System.Linq.Expressions;
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, IEntity
     {
         internal DbSet<T> DbSet;
 
         public Repository(Microsoft.EntityFrameworkCore.DbContext webDbContext)
         {
             DbSet = webDbContext.Set<T>();
+        }
+
+        public T? GetById(int id, string? includeProperties = null)
+        {
+            IQueryable<T> query = DbSet;
+            if (includeProperties != null)
+            {
+                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            }
+            query = query.Where(entity => entity.Id.Equals(id));
+            return query.SingleOrDefault();
         }
 
         public T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)

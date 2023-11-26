@@ -16,12 +16,12 @@ namespace DatabaseManager.DataAccess.Repository
             _webDbContext = webDbContext;
             _configuration = configuration;
 
-            Customer = new CustomerRepository(_webDbContext);
-            Order = new OrderRepository(_webDbContext);
-            OrderItem = new OrderItemRepository(_webDbContext);
-            Payment = new PaymentRepository(_webDbContext);
-            Product = new ProductRepository(_webDbContext);
-            Review = new ReviewRepository(_webDbContext);
+            Customer = new CustomerRepository(_webDbContext, this);
+            Order = new OrderRepository(_webDbContext, this);
+            OrderItem = new OrderItemRepository(_webDbContext, this);
+            Payment = new PaymentRepository(_webDbContext, this);
+            Product = new ProductRepository(_webDbContext, this);
+            Review = new ReviewRepository(_webDbContext, this);
         }
 
         public ICustomerRepository Customer { get; }

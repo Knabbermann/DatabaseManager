@@ -4,6 +4,6 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        public void Update(Order order);
+        public Order? Update(Order cOrder);
     }
 }

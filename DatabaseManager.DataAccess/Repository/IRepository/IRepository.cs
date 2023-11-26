@@ -4,6 +4,7 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {
+        T? GetById(int id, string? includeProperties = null);
         T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
         T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);

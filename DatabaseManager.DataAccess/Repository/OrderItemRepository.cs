@@ -1,15 +1,23 @@
-﻿using DatabaseManager.DataAccess.DbContext;
+﻿using AutoMapper;
+using DatabaseManager.DataAccess.DbContext;
 using DatabaseManager.DataAccess.Repository.IRepository;
 using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class OrderItemRepository(WebDbContext webDbContext) : Repository<OrderItem>(webDbContext),
+    public class OrderItemRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<OrderItem>(webDbContext),
         IOrderItemRepository
     {
-        public void Update(OrderItem orderItem)
+        public OrderItem? Update(OrderItem cOrderItem)
         {
-            webDbContext.Update(orderItem);
+            var uOrderItem = unitOfWork.OrderItem.GetById(cOrderItem.Id);
+            if (uOrderItem == null) return null;
+
+            var config = new MapperConfiguration(x => x.CreateMap<OrderItem, OrderItem>());
+            var mapper = config.CreateMapper();
+            mapper.Map(cOrderItem, uOrderItem);
+            webDbContext.Update(uOrderItem);
+            return uOrderItem;
         }
     }
 }
