@@ -38,7 +38,6 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
             ModelState.Remove("cCustomer.Orders");
             ModelState.Remove("cCustomer.Payments");
             ModelState.Remove("cCustomer.Reviews");
-            ModelState.Remove("cCustomer.GcRecord");
             if (ModelState.IsValid)
             {
                 var uCustomer = unitOfWork.Customer.Update(cCustomer);
