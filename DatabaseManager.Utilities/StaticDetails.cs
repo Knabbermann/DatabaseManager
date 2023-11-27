@@ -17,5 +17,12 @@ namespace DatabaseManager.Utilities
             new SelectListItem { Text = "shipped", Value = "shipped" },
             new SelectListItem { Text = "delivered", Value = "delivered" }
         };
+
+        public static List<SelectListItem> PaymentMethods = new()
+        {
+            new SelectListItem { Text = "bank transfer", Value = "bank transfer" },
+            new SelectListItem { Text = "paypal", Value = "paypal" },
+            new SelectListItem { Text = "credit card", Value = "credit card" }
+        };
     }
 }

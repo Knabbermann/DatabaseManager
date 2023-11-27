@@ -1,0 +1,73 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Tables.Payment.EditModel
+@{
+}
+
+<style>
+    input[readonly] {
+        background-color: GrayText !important;
+    }
+</style>
+
+<div class="container p-3">
+    <form method="post">
+        <div class="row pt-4 align-items-center">
+            <div class="row pb-2">
+                <h2 class="text-primary">Add @Model.ToString()</h2>
+                <hr />
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="Id" value="cOrder.Id" />
+            <div class="form-floating py-2 col-12">
+                <input asp-for="CPayment.Id" class="form-control" aria-required="true" readonly="" />
+                <label asp-for="CPayment.Id"></label>
+                <span asp-validation-for="CPayment.Id" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CPayment.CustomerId" class="form-control" aria-required="true" />
+                <label asp-for="CPayment.CustomerId"></label>
+                <span asp-validation-for="CPayment.CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CPayment.PaymentDate" class="form-control" aria-required="true" type="date" />
+                <label asp-for="CPayment.PaymentDate"></label>
+                <span asp-validation-for="CPayment.PaymentDate" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CPayment.Amount" class="form-control" aria-required="true" type="number" />
+                <label asp-for="CPayment.Amount"></label>
+                <span asp-validation-for="CPayment.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <select asp-for="CPayment.PaymentMethod" class="form-control">
+                    <option value="">Select</option>
+                    @foreach (var option in Utilities.StaticDetails.PaymentMethods)
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                </select>
+                <label asp-for="CPayment.PaymentMethod"></label>
+            </div>
+            <p>Optional:</p>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CPayment.GcRecord" class="form-control" aria-required="true" type="date" />
+                <label asp-for="CPayment.GcRecord"></label>
+                <span asp-validation-for="CPayment.GcRecord" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+            </div>
+            <div class="form-floating py-2 col-6">
+                <button class="w-100 btn btn-lg btn-primary" asp-page="/Tables/Payment/Edit">Edit Payment</button>
+            </div>
+            <div class="form-floating py-2 col-6">
+                <a class="btn btn-outline-secondary w-100" asp-page="/Tables/Payment/Index">Back to list</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

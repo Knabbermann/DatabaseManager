@@ -25,13 +25,13 @@ namespace DatabaseManager.Web.Pages.Tables.Order
 
         public IActionResult OnPostRemove(int id)
         {
-            var customer = unitOfWork.Order.GetFirstOrDefault(x => x.Id == id);
-            if (customer == null)
+            var order = unitOfWork.Order.GetFirstOrDefault(x => x.Id == id);
+            if (order == null)
             {
                 toastNotification.AddErrorToastMessage($"Could not found Order with Id {id}!");
                 return RedirectToPage("/Tables/Order/Index");
             }
-            unitOfWork.Order.Remove(customer);
+            unitOfWork.Order.Remove(order);
             unitOfWork.SaveChanges();
             toastNotification.AddSuccessToastMessage($"Successfully removed Order with Id {id}.");
             return RedirectToPage("/Tables/Order/Index");
