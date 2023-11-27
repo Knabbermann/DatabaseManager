@@ -13,7 +13,7 @@ namespace DatabaseManager.DataAccess.Repository
             var uReview = unitOfWork.Review.GetById(cReview.Id);
             if (uReview == null) return null;
 
-            var config = new MapperConfiguration(x => x.CreateMap<Customer, Customer>());
+            var config = new MapperConfiguration(x => x.CreateMap<Review, Review>());
             var mapper = config.CreateMapper();
             mapper.Map(cReview, uReview);
             webDbContext.Update(uReview);

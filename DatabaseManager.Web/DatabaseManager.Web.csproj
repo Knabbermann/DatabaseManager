@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Tables\Review\" />
     <Folder Include="Pages\Tables\Product\" />
     <Folder Include="Pages\Tables\OrderItem\" />
   </ItemGroup>

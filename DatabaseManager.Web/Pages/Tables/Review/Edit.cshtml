@@ -1,0 +1,68 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Tables.Review.EditModel
+@{
+}
+
+<style>
+    input[readonly] {
+        background-color: GrayText !important;
+    }
+</style>
+
+<div class="container p-3">
+    <form method="post">
+        <div class="row pt-4 align-items-center">
+            <div class="row pb-2">
+                <h2 class="text-primary">Add @Model.ToString()</h2>
+                <hr />
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="Id" value="cOrder.Id" />
+            <div class="form-floating py-2 col-12">
+                <input asp-for="CReview.Id" class="form-control" aria-required="true" readonly="" />
+                <label asp-for="CReview.Id"></label>
+                <span asp-validation-for="CReview.Id" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CReview.CustomerId" class="form-control" aria-required="true" />
+                <label asp-for="CReview.CustomerId"></label>
+                <span asp-validation-for="CReview.CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CReview.ReviewDate" class="form-control" aria-required="true" type="date" />
+                <label asp-for="CReview.ReviewDate"></label>
+                <span asp-validation-for="CReview.ReviewDate" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CReview.Rating" class="form-control" aria-required="true" type="number" min="1" max="5" />
+                <label asp-for="CReview.Rating"></label>
+                <span asp-validation-for="CReview.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CReview.Content" class="form-control" aria-required="true" />
+                <label asp-for="CReview.Content"></label>
+                <span asp-validation-for="CReview.Content" class="text-danger"></span>
+            </div>
+            <p>Optional:</p>
+            <div class="form-floating py-2 col-4">
+                <input asp-for="CReview.GcRecord" class="form-control" aria-required="true" type="date" />
+                <label asp-for="CReview.GcRecord"></label>
+                <span asp-validation-for="CReview.GcRecord" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+            </div>
+            <div class="form-floating py-2 col-6">
+                <button class="w-100 btn btn-lg btn-primary" asp-page="/Tables/Review/Edit">Edit Review</button>
+            </div>
+            <div class="form-floating py-2 col-6">
+                <a class="btn btn-outline-secondary w-100" asp-page="/Tables/Review/Index">Back to list</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
