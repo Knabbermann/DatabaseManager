@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Review
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Review> reviews) : PageModel
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Review> reviews) : CustomPageModel<IndexModel>
     {
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Review> Reviews { get; set; } = reviews;
@@ -35,13 +35,6 @@ namespace DatabaseManager.Web.Pages.Tables.Review
             unitOfWork.SaveChanges();
             toastNotification.AddSuccessToastMessage($"Successfully removed Review with Id {id}.");
             return RedirectToPage("/Tables/Review/Index");
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

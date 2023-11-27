@@ -1,11 +1,10 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Payment
 {
-    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment cPayment) : PageModel
+    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment cPayment) : CustomPageModel<AddModel>
     {
         [BindProperty]
         public Models.Payment CPayment { get; set; } = cPayment;
@@ -28,13 +27,6 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
             }
 
             return Page();
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

@@ -1,11 +1,10 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Order
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order? cOrder) : PageModel
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order? cOrder) : CustomPageModel<EditModel>
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
@@ -51,13 +50,6 @@ namespace DatabaseManager.Web.Pages.Tables.Order
             }
 
             return Page();
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

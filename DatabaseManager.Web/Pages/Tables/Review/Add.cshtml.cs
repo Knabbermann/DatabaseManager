@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Review
 {
-    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review cReview) : PageModel
+    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review cReview) : CustomPageModel<AddModel>
     {
         [BindProperty]
         public Models.Review CReview { get; set; } = cReview;
@@ -28,13 +28,6 @@ namespace DatabaseManager.Web.Pages.Tables.Review
             }
 
             return Page();
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

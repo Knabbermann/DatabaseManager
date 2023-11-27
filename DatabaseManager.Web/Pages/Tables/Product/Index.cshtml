@@ -1,0 +1,102 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Tables.Product.IndexModel
+@{
+}
+
+<div class="container-fluid p-5">
+    <input type="hidden" value="@Model.Products" />
+    <div class="row pt-4 align-items-center">
+        <div class="col-6">
+            <h2 class="text-primary">@Model.ToString() List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-primary" asp-page="/Tables/Product/Add">
+                <i class="bi bi-plus-square"></i> &nbsp;Add New @Model.ToString()
+            </a>
+        </div>
+        <div class="col-4">
+            <h3 class="text-secondary">Rows: @Model.RowCount</h3>
+        </div>
+        <div class="col-4">
+            <h3 class="text-secondary">Columns: @Model.ColumnCount</h3>
+        </div>
+        <div class="col-4">
+            <h3 class="text-secondary">Used Space: @Model.UsedSpace KB</h3>
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr class="table-primary">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Stock
+                </th>
+                <th>
+                    GcRecord
+                </th>
+                <th class="fst-italic">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.Products)
+            {
+                <input type="hidden" value="@obj.Id" />
+                <tr>
+                    <td width="20%">
+                        @obj.Id
+                    </td>
+                    <td width="10%">
+                        @obj.Name
+                    </td>
+                    <td width="10%">
+                        @obj.Category
+                    </td>
+                    <td width="10%">
+                        @obj.Description
+                    </td>
+                    <td width="10%">
+                        @obj.Price
+                    </td>
+                    <td width="10%">
+                        @obj.Stock
+                    </td>
+                    <td width="10%">
+                        @obj.GcRecord
+                    </td>
+                    <td width="20%">
+                        <div class="d-flex justify-content-evenly">
+                            <a class="btn btn-outline-warning" asp-page="/Tables/Product/Edit" asp-route-id="@obj.Id">
+                                <i class="bi bi-pencil-square"></i>&nbsp;Edit
+                            </a>
+                            <form asp-page-handler="Remove" asp-route-id="@obj.Id" method="post">
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Do you really want to delete the review with id @obj.Id?');">
+                                    <div class="d-flex justify-content-center">
+                                        <i class="bi bi-x-square"></i>&nbsp;Remove
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

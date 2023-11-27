@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Payment
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment? cPayment) : PageModel
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment? cPayment) : CustomPageModel<EditModel>
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
@@ -50,13 +50,6 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
             }
 
             return Page();
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

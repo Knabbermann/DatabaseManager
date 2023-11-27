@@ -17,7 +17,6 @@ builder.Services.AddDbContext<WebDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<Customer>();
 builder.Services.AddScoped<Order>();
-builder.Services.AddScoped<OrderItem>();
 builder.Services.AddScoped<Payment>();
 builder.Services.AddScoped<Product>();
 builder.Services.AddScoped<Review>();

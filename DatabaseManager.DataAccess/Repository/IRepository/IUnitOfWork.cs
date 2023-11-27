@@ -6,7 +6,6 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
     {
         ICustomerRepository Customer { get; }
         IOrderRepository Order { get; }
-        IOrderItemRepository OrderItem { get; }
         IPaymentRepository Payment { get; }
         IProductRepository Product { get; }
         IReviewRepository Review { get; }

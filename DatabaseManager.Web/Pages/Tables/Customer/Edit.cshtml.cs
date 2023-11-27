@@ -6,7 +6,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Customer
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Customer? cCustomer) : PageModel
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Customer? cCustomer) : CustomPageModel<EditModel>
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
@@ -53,13 +53,6 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
             }
 
             return Page();
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

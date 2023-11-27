@@ -18,7 +18,6 @@ namespace DatabaseManager.DataAccess.Repository
 
             Customer = new CustomerRepository(_webDbContext, this);
             Order = new OrderRepository(_webDbContext, this);
-            OrderItem = new OrderItemRepository(_webDbContext, this);
             Payment = new PaymentRepository(_webDbContext, this);
             Product = new ProductRepository(_webDbContext, this);
             Review = new ReviewRepository(_webDbContext, this);
@@ -26,7 +25,6 @@ namespace DatabaseManager.DataAccess.Repository
 
         public ICustomerRepository Customer { get; }
         public IOrderRepository Order { get; }
-        public IOrderItemRepository OrderItem { get; }
         public IPaymentRepository Payment { get; }
         public IProductRepository Product { get; }
         public IReviewRepository Review { get; }

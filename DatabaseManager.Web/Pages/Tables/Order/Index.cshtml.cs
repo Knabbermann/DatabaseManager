@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Order
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Order> orders) : PageModel
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Order> orders) : CustomPageModel<IndexModel>
     {
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Order> Orders { get; set; } = orders;
@@ -35,13 +35,6 @@ namespace DatabaseManager.Web.Pages.Tables.Order
             unitOfWork.SaveChanges();
             toastNotification.AddSuccessToastMessage($"Successfully removed Order with Id {id}.");
             return RedirectToPage("/Tables/Order/Index");
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

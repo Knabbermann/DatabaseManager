@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Payment
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Payment> payments) : PageModel
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Payment> payments) : CustomPageModel<IndexModel>
     {
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Payment> Payments { get; set; } = payments;
@@ -35,13 +35,6 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
             unitOfWork.SaveChanges();
             toastNotification.AddSuccessToastMessage($"Successfully removed Payment with Id {id}.");
             return RedirectToPage("/Tables/Payment/Index");
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel", "");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }

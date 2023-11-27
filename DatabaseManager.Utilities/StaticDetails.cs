@@ -24,5 +24,14 @@ namespace DatabaseManager.Utilities
             new SelectListItem { Text = "paypal", Value = "paypal" },
             new SelectListItem { Text = "credit card", Value = "credit card" }
         };
+
+        public static List<SelectListItem> Categories = new()
+        {
+            new SelectListItem { Text = "electronics", Value = "electronics" },
+            new SelectListItem { Text = "clothing", Value = "clothing" },
+            new SelectListItem { Text = "books", Value = "books" },
+            new SelectListItem { Text = "home", Value = "home" },
+            new SelectListItem { Text = "health", Value = "health" }
+        };
     }
 }

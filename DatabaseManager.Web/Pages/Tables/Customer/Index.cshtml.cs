@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Customer
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Customer> customers) : PageModel
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Customer> customers) : CustomPageModel<IndexModel>
     {
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Customer> Customers { get; set; } = customers;
@@ -35,13 +35,6 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
             unitOfWork.SaveChanges();
             toastNotification.AddSuccessToastMessage($"Successfully removed Customer with Id {id}.");
             return RedirectToPage("/Tables/Customer/Index");
-        }
-
-        public override string ToString()
-        {
-            var fullName = GetType().ToString().Replace(".IndexModel","");
-            var index = fullName.LastIndexOf('.');
-            return index < 0 ? fullName : fullName[(index + 1)..];
         }
     }
 }
