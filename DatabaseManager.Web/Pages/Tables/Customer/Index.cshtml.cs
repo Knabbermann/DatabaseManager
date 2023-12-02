@@ -1,12 +1,12 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Customer
 {
     public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Customer> customers) : CustomPageModel<IndexModel>
     {
+
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Customer> Customers { get; set; } = customers;
         [BindProperty(SupportsGet = true)]
@@ -15,9 +15,10 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
         public int ColumnCount { get; set; }
         [BindProperty(SupportsGet = true)]
         public int UsedSpace { get; set; }
-        public void OnGet()
+
+        public void OnGet(int pageNumber = 1)
         {
-            Customers = unitOfWork.Customer.GetAll();
+            Customers = unitOfWork.Customer.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Customer.GetRowCount();
             ColumnCount = unitOfWork.Customer.GetColumnCount();
             UsedSpace = unitOfWork.Customer.GetUsedSpace();

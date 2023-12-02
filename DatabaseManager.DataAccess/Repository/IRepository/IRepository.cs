@@ -7,6 +7,7 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
         int GetRowCount();
         int GetColumnCount();
         int GetUsedSpace();
+        public IEnumerable<T> GetPagedEntities(int page, int pageSize);
         T? GetById(int id, string? includeProperties = null);
         T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
         T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);

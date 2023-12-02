@@ -15,9 +15,9 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
         public int ColumnCount { get; set; }
         [BindProperty(SupportsGet = true)]
         public int UsedSpace { get; set; }
-        public void OnGet()
+        public void OnGet(int pageNumber = 1)
         {
-            Payments = unitOfWork.Payment.GetAll();
+            Payments = unitOfWork.Payment.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Payment.GetRowCount();
             ColumnCount = unitOfWork.Payment.GetColumnCount();
             UsedSpace = unitOfWork.Payment.GetUsedSpace();

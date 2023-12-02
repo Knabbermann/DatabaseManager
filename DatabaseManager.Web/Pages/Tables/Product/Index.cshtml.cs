@@ -15,9 +15,9 @@ namespace DatabaseManager.Web.Pages.Tables.Product
         public int ColumnCount { get; set; }
         [BindProperty(SupportsGet = true)]
         public int UsedSpace { get; set; }
-        public void OnGet()
+        public void OnGet(int pageNumber = 1)
         {
-            Products = unitOfWork.Product.GetAll();
+            Products = unitOfWork.Product.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Product.GetRowCount();
             ColumnCount = unitOfWork.Product.GetColumnCount();
             UsedSpace = unitOfWork.Product.GetUsedSpace();

@@ -15,9 +15,9 @@ namespace DatabaseManager.Web.Pages.Tables.Review
         public int ColumnCount { get; set; }
         [BindProperty(SupportsGet = true)]
         public int UsedSpace { get; set; }
-        public void OnGet()
+        public void OnGet(int pageNumber = 1)
         {
-            Reviews = unitOfWork.Review.GetAll();
+            Reviews = unitOfWork.Review.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Review.GetRowCount();
             ColumnCount = unitOfWork.Review.GetColumnCount();
             UsedSpace = unitOfWork.Review.GetUsedSpace();

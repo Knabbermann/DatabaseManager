@@ -54,6 +54,15 @@ namespace DatabaseManager.DataAccess.Repository
             return usedSpace;
         }
 
+        public IEnumerable<T> GetPagedEntities(int page, int pageSize)
+        {
+            IQueryable<T> query = DbSet;
+            return query.OrderBy(x => x.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+
         public T? GetById(int id, string? includeProperties = null)
         {
             IQueryable<T> query = DbSet;

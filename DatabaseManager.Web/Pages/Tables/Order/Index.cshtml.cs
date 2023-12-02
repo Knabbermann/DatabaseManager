@@ -15,9 +15,9 @@ namespace DatabaseManager.Web.Pages.Tables.Order
         public int ColumnCount { get; set; }
         [BindProperty(SupportsGet = true)]
         public int UsedSpace { get; set; }
-        public void OnGet()
+        public void OnGet(int pageNumber = 1)
         {
-            Orders = unitOfWork.Order.GetAll();
+            Orders = unitOfWork.Order.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Order.GetRowCount();
             ColumnCount = unitOfWork.Order.GetColumnCount();
             UsedSpace = unitOfWork.Order.GetUsedSpace();
