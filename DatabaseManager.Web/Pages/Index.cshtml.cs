@@ -1,10 +1,11 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 
 namespace DatabaseManager.Web.Pages
 {
-    public class IndexModel(IUnitOfWork unitOfWork) : PageModel
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification) : PageModel
     {
         [BindProperty(SupportsGet = true)]
         public string OsVersion { get; set; }
@@ -30,6 +31,9 @@ namespace DatabaseManager.Web.Pages
         [BindProperty(SupportsGet = true)]
         public string DbSize { get; set; }
 
+        [BindProperty]
+        public string SqlCommand { get; set; }
+
         public void OnGet()
         {
             var osData = GetDataForOs();
@@ -43,6 +47,37 @@ namespace DatabaseManager.Web.Pages
             DbSize = dbData[2];
             DbRam = dbData[3];
             DbCores = dbData[4];
+        }
+
+        public IActionResult OnPostExecute()
+        {
+            try
+            {
+                var results = new List<Dictionary<string, object>>();
+                using var dbConnection = unitOfWork.GetDbConnection();
+                dbConnection.Open();
+                using var command = dbConnection.CreateCommand();
+                command.CommandText = SqlCommand;
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var row = new Dictionary<string, object>();
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        row[reader.GetName(i)] = reader.GetValue(i);
+                    }
+                    results.Add(row);
+                }
+                toastNotification.AddSuccessToastMessage("Successfully executed SQL-Query.");
+                ViewData["Results"] = results;
+            }
+            catch (Exception e)
+            {
+                toastNotification.AddErrorToastMessage($"Error while executing SQL-Query:\n{e.Message}");
+            }
+
+            OnGet();
+            return Page();
         }
 
         private string[] GetDataForOs()
@@ -75,6 +110,7 @@ namespace DatabaseManager.Web.Pages
                     result.Add(reader.GetString(1)); // physical_memory_kb
                 }
             }
+            dbConnection.Close();
             return result.ToArray();
         }
 
@@ -128,7 +164,7 @@ namespace DatabaseManager.Web.Pages
                     result.Add(reader.GetString(0)); // UsedCores
                 }
             }
-
+            dbConnection.Close();
             return result.ToArray();
         }
     }

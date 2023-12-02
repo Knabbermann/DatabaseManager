@@ -20,5 +20,44 @@
             <p>Used Cores: <span class="text-secondary"> @Model.DbCores</span></p>
             <p>Used RAM: <span class="text-secondary"> @Model.DbRam GB</span></p>
         </div>
+        <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px;">
+            <h3 class="text-primary">SQL Query</h3>
+            <form asp-page-handler="Execute" method="post">
+                <input asp-for="SqlCommand" type="text" class="form-control" name="sqlCommand" placeholder="Enter your SQL-Command here..." />
+                <button type="submit" class="btn btn-outline-warning" style="margin-top: 10px">
+                    <div class="d-flex justify-content-center">
+                        <i class="bi bi-database-check"></i>&nbsp;Execute
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px; overflow: auto;">
+            <h3 class="text-secondary">Result</h3>
+            @if (ViewData["Results"] is List<Dictionary<string, object>> results && results.Count > 0)
+            {
+                <table class="table">
+                    <thead>
+                    <tr>
+                        @foreach (var key in results[0].Keys)
+                        {
+                            <th>@key</th>
+                        }
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var row in results)
+                    {
+                        <tr>
+                            @foreach (var column in row)
+                            {
+                                <td>@column.Value</td>
+                            }
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        </div>
     </div>
 </div>
+
