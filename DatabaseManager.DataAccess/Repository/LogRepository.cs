@@ -1,12 +1,15 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 using DatabaseManager.DataAccess.Repository.IRepository;
-using DatabaseManager.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class Repository<T>(Microsoft.EntityFrameworkCore.DbContext webDbContext, IUnitOfWork unitOfWork) : IRepository<T> where T : class, IEntity
+    public class LogRepository<T>(Microsoft.EntityFrameworkCore.DbContext webDbContext, IUnitOfWork unitOfWork) : ILogRepository<T> where T : class
     {
         internal DbSet<T> DbSet = webDbContext.Set<T>();
 
@@ -14,24 +17,6 @@ namespace DatabaseManager.DataAccess.Repository
         {
             IQueryable<T> query = DbSet;
             return query.Count();
-        }
-
-        public int GetColumnCount()
-        {
-            using var dbConnection = unitOfWork.GetDbConnection();
-            dbConnection.Open();
-            using var command = dbConnection.CreateCommand();
-            command.CommandText = @"
-                SELECT COUNT(*)
-                FROM INFORMATION_SCHEMA.COLUMNS
-                WHERE TABLE_NAME = @TableName";
-            var parameter = command.CreateParameter();
-            parameter.ParameterName = "@TableName";
-            parameter.Value = DbSet.EntityType.Name.Split('.')[^1] + "s";
-            command.Parameters.Add(parameter);
-            var columnCount = Convert.ToInt32(command.ExecuteScalar());
-            dbConnection.Close();
-            return columnCount;
         }
 
         public int GetUsedSpace()
@@ -55,25 +40,13 @@ namespace DatabaseManager.DataAccess.Repository
             return usedSpace;
         }
 
-        public IEnumerable<T> GetPagedEntities(int page, int pageSize)
+        public IEnumerable<T> GetPagedEntities<TKey>(Expression<Func<T, TKey>> orderByExp, int page, int pageSize)
         {
             IQueryable<T> query = DbSet;
-            return query.OrderBy(x => x.Id)
+            return query.OrderBy(orderByExp)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-        }
-
-        public T? GetById(int id, string? includeProperties = null)
-        {
-            IQueryable<T> query = DbSet;
-            if (includeProperties != null)
-            {
-                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-            }
-            query = query.Where(entity => entity.Id.Equals(id));
-            return query.SingleOrDefault();
         }
 
         public T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
@@ -114,15 +87,9 @@ namespace DatabaseManager.DataAccess.Repository
             return query.ToList();
         }
 
-        public EntityEntry<T> Add(T entity)
+        public void Add(T entity)
         {
-            var cSessionId = Guid.NewGuid();
-            var uEntity = DbSet.Add(entity);
-            unitOfWork.SaveChanges();
-            unitOfWork.LogWithId.Add(new LogWithId { Model = uEntity.Entity.ToString().Split('.')[2], ModelId = uEntity.Entity.Id, SessionGuid = cSessionId });
-            unitOfWork.LogWithGuid.Add(new LogWithGuid { Model = uEntity.Entity.ToString().Split('.')[2], ModelId = uEntity.Entity.Id, SessionGuid = cSessionId });
-            unitOfWork.SaveChanges();
-            return uEntity;
+            DbSet.Add(entity);
         }
 
         public void Remove(T entity)

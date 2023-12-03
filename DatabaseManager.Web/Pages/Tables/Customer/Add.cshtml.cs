@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
@@ -21,8 +22,7 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
             ModelState.Remove("cCustomer.GcRecord");
             if(ModelState.IsValid)
             {
-                unitOfWork.Customer.Add(cCustomer);
-                unitOfWork.SaveChanges();
+                var uCustomer = unitOfWork.Customer.Add(cCustomer);
                 toastNotification.AddSuccessToastMessage("Successfully added Customer.");
                 return RedirectToPage("/Tables/Customer/Index");
             }

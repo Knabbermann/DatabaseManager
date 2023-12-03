@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
@@ -20,7 +21,6 @@ namespace DatabaseManager.Web.Pages.Tables.Product
             if (ModelState.IsValid)
             {
                 unitOfWork.Product.Add(cProduct);
-                unitOfWork.SaveChanges();
                 toastNotification.AddSuccessToastMessage("Successfully added Product.");
                 return RedirectToPage("/Tables/Product/Index");
             }

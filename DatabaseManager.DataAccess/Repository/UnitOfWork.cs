@@ -21,6 +21,8 @@ namespace DatabaseManager.DataAccess.Repository
             Payment = new PaymentRepository(_webDbContext, this);
             Product = new ProductRepository(_webDbContext, this);
             Review = new ReviewRepository(_webDbContext, this);
+            LogWithId = new LogWithIdRepository(_webDbContext, this);
+            LogWithGuid = new LogWithGuidRepository(_webDbContext, this);
         }
 
         public ICustomerRepository Customer { get; }
@@ -28,6 +30,8 @@ namespace DatabaseManager.DataAccess.Repository
         public IPaymentRepository Payment { get; }
         public IProductRepository Product { get; }
         public IReviewRepository Review { get; }
+        public ILogWithIdRepository LogWithId { get; }
+        public ILogWithGuidRepository LogWithGuid { get; }
 
         public void SaveChanges()
         {

@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
@@ -22,7 +23,6 @@ namespace DatabaseManager.Web.Pages.Tables.Order
             if (ModelState.IsValid)
             {
                 unitOfWork.Order.Add(cOrder);
-                unitOfWork.SaveChanges();
                 toastNotification.AddSuccessToastMessage("Successfully added Order.");
                 return RedirectToPage("/Tables/Order/Index");
             }

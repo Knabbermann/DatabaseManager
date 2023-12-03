@@ -9,6 +9,8 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
         IPaymentRepository Payment { get; }
         IProductRepository Product { get; }
         IReviewRepository Review { get; }
+        ILogWithIdRepository LogWithId { get; }
+        ILogWithGuidRepository LogWithGuid { get; }
         void SaveChanges();
         IDbConnection GetDbConnection();
     }

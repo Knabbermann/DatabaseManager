@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DatebaseManager.Web</title>
+    <title>@ViewData["Title"] - DatabaseManager.Web</title>
     <link rel="icon" type="image/x-icon" href="~/databasemanager.ico">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/bootswatchTheme.css" asp-append-version="true" />
@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand py-0" asp-area="" asp-page="/Index">
-                    <img src="~/databasemanager.ico" style="width: 64px; height: 64px;" alt="DatebaseManager" />
+                    <img src="~/databasemanager.ico" style="width: 64px; height: 64px;" alt="DatabaseManager" />
                 </a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
@@ -29,8 +29,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Performance/Index">Performance</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Log/Index">Logs</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Logs</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-page="/Tables/LogById/Index">Logs by Id</a>
+                                <a class="dropdown-item" asp-page="/Tables/LogByGuid/Index">Logs by Guid</a>
+                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tables</a>
@@ -64,7 +68,7 @@
         <div class="container p-0">
             <div class="row p-0">
                 <div class="col-md-6 d-flex align-items-center justify-content-start p-0">
-                    <img src="~/databasemanager.png" style="width: 64px; height: 64px;" alt="DatebaseManager" />
+                    <img src="~/databasemanager.png" style="width: 64px; height: 64px;" alt="DatabaseManager" />
                     <a href="https://www.xing.com/profile/Jiri_Skoda2/cv" target="_blank" class="btn btn-link">
                         Created by Jiri Skoda
                         <i class="bi bi-person-square"></i>

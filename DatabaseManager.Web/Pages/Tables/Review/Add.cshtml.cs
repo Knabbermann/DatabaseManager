@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
@@ -22,7 +23,6 @@ namespace DatabaseManager.Web.Pages.Tables.Review
             if (ModelState.IsValid)
             {
                 unitOfWork.Review.Add(cReview);
-                unitOfWork.SaveChanges();
                 toastNotification.AddSuccessToastMessage("Successfully added Review.");
                 return RedirectToPage("/Tables/Review/Index");
             }

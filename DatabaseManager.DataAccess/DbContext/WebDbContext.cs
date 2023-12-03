@@ -15,5 +15,7 @@ namespace DatabaseManager.DataAccess.DbContext
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<LogWithId> LogWithIds { get; set; }
+        public DbSet<LogWithGuid> LogWithGuids { get; set; }
     }
 }

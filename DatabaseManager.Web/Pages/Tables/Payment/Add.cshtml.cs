@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
@@ -21,7 +22,6 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
             if (ModelState.IsValid)
             {
                 unitOfWork.Payment.Add(cPayment);
-                unitOfWork.SaveChanges();
                 toastNotification.AddSuccessToastMessage("Successfully added Payment.");
                 return RedirectToPage("/Tables/Payment/Index");
             }
