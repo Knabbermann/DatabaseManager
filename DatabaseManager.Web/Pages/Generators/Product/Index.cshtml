@@ -1,0 +1,75 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Generators.Product.IndexModel
+@{
+}
+
+<div class="container-fluid p-5">
+    <div class="row pt-4 align-items-center">
+        <div class="col-6">
+            <h2 class="text-primary">@Model.ToString() Generator</h2>
+        </div>
+        
+        <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <p>Quantity: <input type="number" min="1" class="text-secondary" style="height: 25px;"></p>
+            <p style="display: flex; align-items: center;">Fill optional properties
+                <input type="checkbox" id="optionalCheckbox" class="text-secondary" style="height: 25px; width: 25px;">
+            </p>
+            <p style="display: flex; align-items: center;">Set References:&nbsp;  <input type="checkbox" class="text-secondary" style="height: 25px; width: 25px;" disabled=""></p>
+        </div>
+        <h3>Required:</h3>
+        <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <p>
+                Name:
+                <select class="text-secondary" style="height: 25px;">
+                    <option value="Random">Random</option>
+                </select>
+            </p>
+            <p>
+                Price:
+                <select class="text-secondary" style="height: 25px;">
+                    <option value="Random">Random</option>
+                </select>
+            </p>
+            <p>
+                Stock:
+                <select class="text-secondary" style="height: 25px;">
+                    <option value="Random">Random</option>
+                </select>
+            </p>
+        </div>
+        <div id="optionalSection" style="display: none;">
+            <h3>Optional:</h3>
+            <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p>
+                    Description:
+                    <select class="text-secondary" style="height: 25px;">
+                        <option value="Random">Random</option>
+                    </select>
+                    Chance:&nbsp;<input type="number" min="0" max="100" style="height: 25px;">
+                </p>
+                <p>
+                    Category:
+                    <select class="text-secondary" style="height: 25px;">
+                        <option value="Random">Random</option>
+                    </select>
+                    Chance:&nbsp;<input type="number" min="0" max="100" style="height: 25px;">
+                </p>
+                <p>
+                    GcRecord:
+                    <select class="text-secondary" style="height: 25px;">
+                        <option value="Random">Random</option>
+                        <option value="Now">Now</option>
+                    </select>
+                    Chance:&nbsp;<input type="number" min="0" max="100" style="height: 25px;">
+                </p>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+
+<script>
+    document.getElementById('optionalCheckbox').addEventListener('change', function() {
+        document.getElementById('optionalSection').style.display = this.checked ? 'block' : 'none';
+    });
+</script>

@@ -25,4 +25,11 @@
     <ProjectReference Include="..\DatabaseManager.Utilities\DatabaseManager.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Generators\Customer\" />
+    <Folder Include="Pages\Generators\Review\" />
+    <Folder Include="Pages\Generators\Payment\" />
+    <Folder Include="Pages\Generators\Order\" />
+  </ItemGroup>
+
 </Project>
