@@ -8,6 +8,8 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
     public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Payment> payments) : CustomPageModel<IndexModel>
     {
         [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
+        [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Payment> Payments { get; set; } = payments;
         [BindProperty(SupportsGet = true)]
         public int RowCount { get; set; }
@@ -17,6 +19,7 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
         public int UsedSpace { get; set; }
         public void OnGet(int pageNumber = 1)
         {
+            CurrentPage = pageNumber;
             Payments = unitOfWork.Payment.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Payment.GetRowCount();
             ColumnCount = unitOfWork.Payment.GetColumnCount();

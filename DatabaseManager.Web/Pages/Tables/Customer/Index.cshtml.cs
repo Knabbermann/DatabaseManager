@@ -6,7 +6,8 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
 {
     public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Customer> customers) : CustomPageModel<IndexModel>
     {
-
+        [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
         [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.Customer> Customers { get; set; } = customers;
         [BindProperty(SupportsGet = true)]
@@ -18,6 +19,7 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
 
         public void OnGet(int pageNumber = 1)
         {
+            CurrentPage = pageNumber;
             Customers = unitOfWork.Customer.GetPagedEntities(pageNumber, 10);
             RowCount = unitOfWork.Customer.GetRowCount();
             ColumnCount = unitOfWork.Customer.GetColumnCount();

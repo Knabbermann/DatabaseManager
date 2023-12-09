@@ -7,6 +7,8 @@ namespace DatabaseManager.Web.Pages.Tables.LogByGuid
     public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.LogWithGuid> logWithGuids) : CustomPageModel<IndexModel>
     {
         [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
+        [BindProperty(SupportsGet = true)]
         public IEnumerable<Models.LogWithGuid> LogWithGuids { get; set; } = logWithGuids;
         [BindProperty(SupportsGet = true)]
         public int RowCount { get; set; }
@@ -14,6 +16,7 @@ namespace DatabaseManager.Web.Pages.Tables.LogByGuid
         public int UsedSpace { get; set; }
         public void OnGet(int pageNumber = 1)
         {
+            CurrentPage = pageNumber;
             LogWithGuids = unitOfWork.LogWithGuid.GetPagedEntities(x => x.Guid, pageNumber, 10);
             RowCount = unitOfWork.LogWithGuid.GetRowCount();
             UsedSpace = unitOfWork.LogWithGuid.GetUsedSpace();

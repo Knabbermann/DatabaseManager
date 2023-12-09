@@ -106,9 +106,31 @@
     </table>
     <div class="pagination-container btn-toolbar" role="toolbar">
         <div class="btn-group me-2" role="group">
-            @for (var i = 1; i <= (Model.RowCount + 9) / 10; i++)
+            @{
+                var currentPage = Model.CurrentPage;
+                var totalPages = (Model.RowCount + 9) / 10;
+            }
+            <!-- Erste Seite -->
+            @if (currentPage > 2)
             {
-                <a class="btn btn-primary" href="?pageNumber=@i">@i</a>
+                <a class="btn btn-primary" href="?pageNumber=1">1</a>
+            }
+            <!-- Vorherige Seite -->
+            @if (currentPage > 1)
+            {
+                <a class="btn btn-primary" href="?pageNumber=@(currentPage - 1)">@((currentPage - 1))</a>
+            }
+            <!-- Aktuelle Seite -->
+            <a class="btn btn-primary active" href="?pageNumber=@currentPage">@currentPage</a>
+            <!-- Nächste Seite -->
+            @if (currentPage < totalPages)
+            {
+                <a class="btn btn-primary" href="?pageNumber=@(currentPage + 1)">@((currentPage + 1))</a>
+            }
+            <!-- Letzte Seite -->
+            @if (currentPage < totalPages - 1)
+            {
+                <a class="btn btn-primary" href="?pageNumber=@totalPages">@totalPages</a>
             }
         </div>
     </div>
