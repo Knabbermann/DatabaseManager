@@ -1,0 +1,233 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Generators.Customer.IndexModel
+@{
+}
+
+<div class="container-fluid p-5">
+    <div class="row pt-4 align-items-center">
+        <div class="col-9">
+            <h2 class="text-primary">@Model.ToString() Generator</h2>
+        </div>
+        <form asp-page-handler="Generate" method="post">
+            <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p>Quantity: <input type="number" min="1" value="1" class="text-secondary" style="height: 25px;" name="quantity"></p>
+                <p style="display: flex; align-items: center;">
+                    Fill optional properties
+                    <input type="checkbox" id="FillOptionalProperties" asp-for="FillOptionalProperties" class="text-secondary" style="height: 25px; width: 25px;">
+                </p>
+                <p style="display: flex; align-items: center;">
+                    Set References:&nbsp;
+                    <input type="checkbox" asp-for="SetReferences" class="text-secondary" style="height: 25px; width: 25px;" disabled="">
+                </p>
+            </div>
+            <h3>Required:</h3>
+            <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p>
+                    FirstName:
+                    <select class="text-secondary" style="height: 25px;" name="firstName">
+                        <option value="Random">Random</option>
+                        <option value="FirstNames">FirstNames</option>
+                    </select>
+                </p>
+                <p>
+                    LastName:
+                    <select class="text-secondary" style="height: 25px;" name="lastName">
+                        <option value="Random">Random</option>
+                        <option value="LastNames">LastNames</option>
+                    </select>
+                </p>
+                <p>
+                    Email:
+                    <select class="text-secondary" style="height: 25px;" name="email">
+                        <option value="Random">Random</option>
+                        <option value="Emails">Emails</option>
+                    </select>
+                </p>
+            </div>
+            <div id="optionalSection" style="display: none;">
+                <h3>Optional:</h3>
+                <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p>
+                            MiddleName:
+                            <select class="text-secondary" style="height: 25px;" name="middleName">
+                                <option value="Random">Random</option>
+                                <option value="FirstNames">FirstNames</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="firstNameChance">
+                        </p>
+                        <p>
+                            SecondaryEmail:
+                            <select class="text-secondary" style="height: 25px;" name="secondaryEmail">
+                                <option value="Random">Random</option>
+                                <option value="Emails">Emails</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="secondaryEmailChance">
+                        </p>
+                        <p>
+                            PhoneNumber:
+                            <select class="text-secondary" style="height: 25px;" name="phoneNumber">
+                                <option value="Random">Random</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="phoneNumberChance">
+                        </p>
+                        <p>
+                            SecondaryPhoneNumber:
+                            <select class="text-secondary" style="height: 25px;" name="secondaryPhoneNumber">
+                                <option value="Random">Random</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="secondaryPhoneNumberChance">
+                        </p>
+                        <p>
+                            DateOfBirth:
+                            <select class="text-secondary" style="height: 25px;" name="dateOfBirth">
+                                <option value="Random">Random</option>
+                                <option value="Random">Now</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="dateOfBirthChance">
+                        </p>
+                        <p>
+                            Gender:
+                            <select class="text-secondary" style="height: 25px;" name="gender">
+                                <option value="Random">Random</option>
+                                <option value="Genders">Genders</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="genderChance">
+                        </p>
+                        <p>
+                            Nationality:
+                            <select class="text-secondary" style="height: 25px;" name="nationality">
+                                <option value="Random">Random</option>
+                                <option value="Nationalities">Nationalities</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="nationalityChance">
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <p>
+                            AddressLine1:
+                            <select class="text-secondary" style="height: 25px;" name="addressLine1">
+                                <option value="Random">Random</option>
+                                <option value="AddressLines">AddressLines</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="addressLine1Chance">
+                        </p>
+                        <p>
+                            AddressLine2:
+                            <select class="text-secondary" style="height: 25px;" name="addressLine2">
+                                <option value="Random">Random</option>
+                                <option value="AddressLines">AddressLines</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="addressLine2Chance">
+                        </p>
+                        <p>
+                            City:
+                            <select class="text-secondary" style="height: 25px;" name="city">
+                                <option value="Random">Random</option>
+                                <option value="Cities">Cities</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="cityChance">
+                        </p>
+                        <p>
+                            State:
+                            <select class="text-secondary" style="height: 25px;" name="state">
+                                <option value="Random">Random</option>
+                                <option value="States">States</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="stateChance">
+                        </p>
+                        <p>
+                            Country:
+                            <select class="text-secondary" style="height: 25px;" name="country">
+                                <option value="Random">Random</option>
+                                <option value="Countries">Countries</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="countryChance">
+                        </p>
+                        <p>
+                            PostalCode:
+                            <select class="text-secondary" style="height: 25px;" name="postalCode">
+                                <option value="Random">Random</option>
+                                <option value="PostalCodes">PostalCodes</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="postalCodeChance">
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <p>
+                            IsActive:
+                            <select class="text-secondary" style="height: 25px;" name="isActive">
+                                <option value="Random">Random</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="isActiveChance">
+                        </p>
+                        <p>
+                            LastOnline:
+                            <select class="text-secondary" style="height: 25px;" name="lastOnline">
+                                <option value="Random">Random</option>
+                                <option value="Now">Now</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="lastOnlineChance">
+                        </p>
+                        <p>
+                            CreatedAt:
+                            <select class="text-secondary" style="height: 25px;" name="createdAt">
+                                <option value="Random">Random</option>
+                                <option value="Now">Now</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="createdAtChance">
+                        </p>
+                        <p>
+                            UpdatedAt:
+                            <select class="text-secondary" style="height: 25px;" name="updatedAt">
+                                <option value="Random">Random</option>
+                                <option value="Now">Now</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="updatedAtChance">
+                        </p>
+                        <p>
+                            PreferredLanguage:
+                            <select class="text-secondary" style="height: 25px;" name="preferredLanguage">
+                                <option value="Random">Random</option>
+                                <option value="PreferredLanguages">PreferredLanguages</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="preferredLanguageChance">
+                        </p>
+                        <p>
+                            PreferredPaymentMethod:
+                            <select class="text-secondary" style="height: 25px;" name="preferredPaymentMethod">
+                                <option value="Random">Random</option>
+                                <option value="PreferredPaymentMethods">PreferredPaymentMethods</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="preferredPaymentMethod">
+                        </p>
+                        <p>
+                            GcRecord:
+                            <select class="text-secondary" style="height: 25px;" name="gcRecord">
+                                <option value="Random">Random</option>
+                                <option value="Now">Now</option>
+                            </select>
+                            Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="gcRecordChance">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-10" style="padding: 20px">
+                <button type="submit" class="btn btn-outline-danger">
+                    <div class="d-flex justify-content-center">
+                        <i class="bi bi-x-square"></i>&nbsp;Generate
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+    <br />
+</div>
+
+<script>
+    document.getElementById('FillOptionalProperties').addEventListener('change', function () {
+        document.getElementById('optionalSection').style.display = this.checked ? 'block' : 'none';
+    });
+</script>
