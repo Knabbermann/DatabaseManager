@@ -64,6 +64,13 @@ namespace DatabaseManager.DataAccess.Repository
                 .ToList();
         }
 
+        public List<int> GetAllIds()
+        {
+            IQueryable<T> query = DbSet;
+            return query.Select(x => x.Id)
+                .ToList();
+        }
+
         public T? GetById(int id, string? includeProperties = null)
         {
             IQueryable<T> query = DbSet;

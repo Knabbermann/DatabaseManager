@@ -49,7 +49,6 @@ namespace DatabaseManager.Web.Pages.Generators.Product
                 }
                 unitOfWork.Product.Add(cProduct);
             }
-            unitOfWork.SaveChanges();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DatabaseManager.Models
         public decimal TotalAmount { get; set; }
         [Required]
         [StringLength(50)]
-        public string Status { get; set; } // e.g. "Pending", "Shipped", "Delivered"
+        public string Status { get; set; }
         public virtual Customer Customer { get; set; }
         public DateTime? GcRecord { get; set; }
     }

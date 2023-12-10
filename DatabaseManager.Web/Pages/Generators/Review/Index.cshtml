@@ -1,0 +1,86 @@
+﻿@page
+@model DatabaseManager.Web.Pages.Generators.Review.IndexModel
+@{
+}
+<div class="container-fluid p-5">
+    <div class="row pt-4 align-items-center">
+        <div class="col-9">
+            <h2 class="text-primary">@Model.ToString() Generator</h2>
+        </div>
+        <form asp-page-handler="Generate" method="post">
+            <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p>Quantity: <input type="number" min="1" value="1" class="text-secondary" style="height: 25px;" name="quantity"></p>
+                <p style="display: flex; align-items: center;">
+                    Fill optional properties
+                    <input type="checkbox" id="FillOptionalProperties" asp-for="FillOptionalProperties" class="text-secondary" style="height: 25px; width: 25px;">
+                </p>
+                <p style="display: flex; align-items: center;">
+                    Set References:&nbsp;
+                    <input type="checkbox" id="SetReferences" asp-for="SetReferences" class="text-secondary" style="height: 25px; width: 25px;" >
+                </p>
+            </div>
+            <h3>Required:</h3>
+            <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p>
+                    Rating:
+                    <select class="text-secondary" style="height: 25px;" name="rating">
+                        <option value="Random">Random</option>
+                    </select>
+                </p>
+                <p>
+                    ReviewDate:
+                    <select class="text-secondary" style="height: 25px;" name="reviewDate">
+                        <option value="Random">Random</option>
+                        <option value="Now">Now</option>
+                    </select>
+                </p>
+                <p>
+                    Content:
+                    <select class="text-secondary" style="height: 25px;" name="content">
+                        <option value="Random">Random</option>
+                        <option value="ReviewContents">ReviewContents</option>
+                    </select>
+                </p>
+            </div>
+            <div id="optionalSection" style="display: none;">
+                <h3>Optional:</h3>
+                <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <p>
+                        GcRecord:
+                        <select class="text-secondary" style="height: 25px;" name="gcRecord">
+                            <option value="Random">Random</option>
+                            <option value="Now">Now</option>
+                        </select>
+                        Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="gcRecordChance">
+                    </p>
+                </div>
+            </div>
+            <div id="referenceSection" style="display: none;">
+                <h3>References:</h3>
+                <div class="col-10" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <p>
+                        Customer:
+                        Chance:&nbsp;<input type="number" min="0" max="100" value="50" style="height: 25px;" name="customerChance">
+                    </p>
+                </div>
+            </div>
+            <div class="col-10" style="padding: 20px">
+                <button type="submit" class="btn btn-outline-danger">
+                    <div class="d-flex justify-content-center">
+                        <i class="bi bi-x-square"></i>&nbsp;Generate
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+    <br />
+</div>
+
+<script>
+    document.getElementById('FillOptionalProperties').addEventListener('change', function () {
+        document.getElementById('optionalSection').style.display = this.checked ? 'block' : 'none';
+    });
+    document.getElementById('SetReferences').addEventListener('change', function () {
+        document.getElementById('referenceSection').style.display = this.checked ? 'block' : 'none';
+    });
+</script>

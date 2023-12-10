@@ -18,7 +18,7 @@ namespace DatabaseManager.Models
         public DateTime PaymentDate { get; set; }
         [Required]
         [StringLength(50)]
-        public string PaymentMethod { get; set; } // e.g. "Credit Card", "PayPal"
+        public string PaymentMethod { get; set; }
         public virtual Customer Customer { get; set; }
         public DateTime? GcRecord { get; set; }
     }

@@ -60,6 +60,12 @@ namespace DatabaseManager.Web.Pages
             return new string(stringChars);
         }
 
+        protected static int GetRandomFromIds(List<int> ids)
+        {
+            var random = new Random();
+            return ids[random.Next(0, ids.Count)];
+        }
+
         protected static string GetRandomFromList(string fileName)
         {
             var lines = System.IO.File.ReadAllLines(@$"C:\Users\jiris\source\repos\DatabaseManager\DatabaseManager.Utilities\{fileName}.txt");

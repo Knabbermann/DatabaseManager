@@ -158,7 +158,6 @@ namespace DatabaseManager.Web.Pages.Generators.Customer
                 }
                 unitOfWork.Customer.Add(cCustomer);
             }
-            unitOfWork.SaveChanges();
         }
     }
 }
