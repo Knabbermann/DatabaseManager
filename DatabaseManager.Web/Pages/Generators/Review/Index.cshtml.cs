@@ -29,6 +29,7 @@ namespace DatabaseManager.Web.Pages.Generators.Review
         public void OnPostGenerate()
         {
             var random = new Random();
+            var cSessionId = Guid.NewGuid();
             var customerIds = new List<int>();
             if (SetReferences) customerIds = unitOfWork.Customer.GetAllIds();
             for (var i = 0; i < Quantity; i++)
@@ -50,7 +51,7 @@ namespace DatabaseManager.Web.Pages.Generators.Review
                     if (random.Next(0, 100) < CustomerChance)
                         cReview.CustomerId = GetRandomFromIds(customerIds);
                 }
-                unitOfWork.Review.Add(cReview);
+                unitOfWork.Review.Add(cReview, cSessionId);
             }
         }
     }

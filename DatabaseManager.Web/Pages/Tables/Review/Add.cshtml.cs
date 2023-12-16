@@ -22,7 +22,7 @@ namespace DatabaseManager.Web.Pages.Tables.Review
             if (cCustomer == null) ModelState.AddModelError("CReview.CustomerId", $"Could not found customer with id {cReview.CustomerId}!");
             if (ModelState.IsValid)
             {
-                unitOfWork.Review.Add(cReview);
+                unitOfWork.Review.Add(cReview, Guid.NewGuid());
                 toastNotification.AddSuccessToastMessage("Successfully added Review.");
                 return RedirectToPage("/Tables/Review/Index");
             }

@@ -21,7 +21,7 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
             if (cCustomer == null) ModelState.AddModelError("CPayment.CustomerId", $"Could not found customer with id {cPayment.CustomerId}!");
             if (ModelState.IsValid)
             {
-                unitOfWork.Payment.Add(cPayment);
+                unitOfWork.Payment.Add(cPayment, Guid.NewGuid());
                 toastNotification.AddSuccessToastMessage("Successfully added Payment.");
                 return RedirectToPage("/Tables/Payment/Index");
             }

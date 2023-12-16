@@ -25,6 +25,7 @@ namespace DatabaseManager.Web.Pages.Generators.Payment
         public void OnPostGenerate()
         {
             var random = new Random();
+            var cSessionId = Guid.NewGuid();
             var customerIds = unitOfWork.Customer.GetAllIds();
             for (var i = 0; i < Quantity; i++)
             {
@@ -40,7 +41,7 @@ namespace DatabaseManager.Web.Pages.Generators.Payment
                     if (random.Next(0, 100) <= GcRecordChance)
                         cPayment.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
-                unitOfWork.Payment.Add(cPayment);
+                unitOfWork.Payment.Add(cPayment, cSessionId);
             }
         }
     }

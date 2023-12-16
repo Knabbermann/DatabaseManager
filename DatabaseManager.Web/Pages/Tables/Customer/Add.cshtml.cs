@@ -22,7 +22,7 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
             ModelState.Remove("cCustomer.GcRecord");
             if(ModelState.IsValid)
             {
-                var uCustomer = unitOfWork.Customer.Add(cCustomer);
+                unitOfWork.Customer.Add(cCustomer, Guid.NewGuid());
                 toastNotification.AddSuccessToastMessage("Successfully added Customer.");
                 return RedirectToPage("/Tables/Customer/Index");
             }

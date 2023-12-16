@@ -22,7 +22,7 @@ namespace DatabaseManager.Web.Pages.Tables.Order
             if (cCustomer == null) ModelState.AddModelError("COrder.CustomerId", $"Could not found customer with id {cOrder.CustomerId}!");
             if (ModelState.IsValid)
             {
-                unitOfWork.Order.Add(cOrder);
+                unitOfWork.Order.Add(cOrder, Guid.NewGuid());
                 toastNotification.AddSuccessToastMessage("Successfully added Order.");
                 return RedirectToPage("/Tables/Order/Index");
             }

@@ -14,7 +14,7 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
         T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
         T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
-        EntityEntry<T> Add(T entity);
+        EntityEntry<T> Add(T entity, Guid cSessionId);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
     }

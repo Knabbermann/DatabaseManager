@@ -29,7 +29,7 @@ namespace DatabaseManager.Web.Pages.Generators.Product
         public void OnPostGenerate()
         {
             var random = new Random();
-
+            var cSessionId = Guid.NewGuid();
             for (var i = 0; i < Quantity; i++)
             {
                 var cProduct = new Models.Product
@@ -47,7 +47,7 @@ namespace DatabaseManager.Web.Pages.Generators.Product
                     if (random.Next(0, 100) <= GcRecordChance) 
                         cProduct.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
-                unitOfWork.Product.Add(cProduct);
+                unitOfWork.Product.Add(cProduct, cSessionId);
             }
         }
     }

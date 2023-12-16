@@ -20,7 +20,7 @@ namespace DatabaseManager.Web.Pages.Tables.Product
             ModelState.Remove("cProduct.OrderItems");
             if (ModelState.IsValid)
             {
-                unitOfWork.Product.Add(cProduct);
+                unitOfWork.Product.Add(cProduct, Guid.NewGuid());
                 toastNotification.AddSuccessToastMessage("Successfully added Product.");
                 return RedirectToPage("/Tables/Product/Index");
             }

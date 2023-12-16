@@ -25,6 +25,7 @@ namespace DatabaseManager.Web.Pages.Generators.Order
         public void OnPostGenerate()
         {
             var random = new Random();
+            var cSessionId = Guid.NewGuid();
             var customerIds = unitOfWork.Customer.GetAllIds();
             for (var i = 0; i < Quantity; i++)
             {
@@ -40,7 +41,7 @@ namespace DatabaseManager.Web.Pages.Generators.Order
                     if (random.Next(0, 100) <= GcRecordChance)
                         cOrder.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
-                unitOfWork.Order.Add(cOrder);
+                unitOfWork.Order.Add(cOrder, cSessionId);
             }
         }
     }

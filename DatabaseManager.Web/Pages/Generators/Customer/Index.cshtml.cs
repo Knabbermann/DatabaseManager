@@ -102,7 +102,7 @@ namespace DatabaseManager.Web.Pages.Generators.Customer
         public void OnPostGenerate()
         {
             var random = new Random();
-
+            var cSessionId = Guid.NewGuid();
             for (var i = 0; i < Quantity; i++)
             {
                 var cCustomer = new Models.Customer
@@ -156,7 +156,7 @@ namespace DatabaseManager.Web.Pages.Generators.Customer
                     if (random.Next(0, 100) <= GcRecordChance)
                         cCustomer.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
-                unitOfWork.Customer.Add(cCustomer);
+                unitOfWork.Customer.Add(cCustomer, cSessionId);
             }
         }
     }

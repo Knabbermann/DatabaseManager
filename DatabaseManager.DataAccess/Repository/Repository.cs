@@ -121,9 +121,8 @@ namespace DatabaseManager.DataAccess.Repository
             return query.ToList();
         }
 
-        public EntityEntry<T> Add(T entity)
+        public EntityEntry<T> Add(T entity, Guid cSessionId)
         {
-            var cSessionId = Guid.NewGuid();
             var uEntity = DbSet.Add(entity);
             unitOfWork.SaveChanges();
             unitOfWork.LogWithId.Add(new LogWithId { Model = uEntity.Entity.ToString().Split('.')[2], ModelId = uEntity.Entity.Id, SessionGuid = cSessionId });
