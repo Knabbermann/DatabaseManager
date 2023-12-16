@@ -17,5 +17,6 @@ namespace DatabaseManager.DataAccess.DbContext
         public DbSet<Review> Reviews { get; set; }
         public DbSet<LogWithId> LogWithIds { get; set; }
         public DbSet<LogWithGuid> LogWithGuids { get; set; }
+        public DbSet<Performance> Performances { get; set; }
     }
 }

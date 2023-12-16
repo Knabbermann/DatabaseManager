@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using DatabaseManager.DataAccess.DbContext;
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
@@ -23,6 +24,7 @@ namespace DatabaseManager.DataAccess.Repository
             Review = new ReviewRepository(_webDbContext, this);
             LogWithId = new LogWithIdRepository(_webDbContext, this);
             LogWithGuid = new LogWithGuidRepository(_webDbContext, this);
+            Performance = new PerformanceRepository(_webDbContext, this);
         }
 
         public ICustomerRepository Customer { get; }
@@ -32,6 +34,7 @@ namespace DatabaseManager.DataAccess.Repository
         public IReviewRepository Review { get; }
         public ILogWithIdRepository LogWithId { get; }
         public ILogWithGuidRepository LogWithGuid { get; }
+        public IPerformanceRepository Performance { get; }
 
         public void SaveChanges()
         {

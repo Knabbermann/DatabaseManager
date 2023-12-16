@@ -11,6 +11,7 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
         IReviewRepository Review { get; }
         ILogWithIdRepository LogWithId { get; }
         ILogWithGuidRepository LogWithGuid { get; }
+        IPerformanceRepository Performance { get; }
         void SaveChanges();
         IDbConnection GetDbConnection();
     }
