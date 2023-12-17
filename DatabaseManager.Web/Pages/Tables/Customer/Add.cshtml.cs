@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Customer
 {
-    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Customer cCustomer) : CustomPageModel<AddModel>
+    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Customer cCustomer, IConfiguration configuration) : CustomPageModel<AddModel>(configuration)
     {
         [BindProperty]
         public Models.Customer CCustomer { get; set; } = cCustomer;

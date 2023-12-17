@@ -4,7 +4,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Order
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order? cOrder) : CustomPageModel<EditModel>
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order? cOrder, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }

@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Review
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Review> reviews) : CustomPageModel<IndexModel>
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Review> reviews, IConfiguration configuration) : CustomPageModel<IndexModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;

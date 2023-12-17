@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Order
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Order> orders) : CustomPageModel<IndexModel>
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Order> orders, IConfiguration configuration) : CustomPageModel<IndexModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;

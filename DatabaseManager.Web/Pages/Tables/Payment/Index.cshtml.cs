@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Payment
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Payment> payments) : CustomPageModel<IndexModel>
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.Payment> payments, IConfiguration configuration) : CustomPageModel<IndexModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;

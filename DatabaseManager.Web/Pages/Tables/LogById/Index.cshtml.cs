@@ -4,7 +4,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.LogById
 {
-    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.LogWithId> logWithIds) : CustomPageModel<IndexModel>
+    public class IndexModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, IEnumerable<Models.LogWithId> logWithIds, IConfiguration configuration) : CustomPageModel<IndexModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;

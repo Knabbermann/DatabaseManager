@@ -2,7 +2,7 @@
 
 namespace DatabaseManager.Web.Pages
 {
-    public class CustomPageModel<T> : PageModel
+    public class CustomPageModel<T>(IConfiguration configuration) : PageModel
     {
         public override string ToString()
         {
@@ -66,9 +66,10 @@ namespace DatabaseManager.Web.Pages
             return ids[random.Next(0, ids.Count)];
         }
 
-        protected static string GetRandomFromList(string fileName)
+        protected string GetRandomFromList(string fileName)
         {
-            var lines = System.IO.File.ReadAllLines(@$"C:\Users\jiris\source\repos\DatabaseManager\DatabaseManager.Utilities\{fileName}.txt");
+            var path = configuration.GetSection("DatabaseManagerUtilitiesPath").Value;
+            var lines = System.IO.File.ReadAllLines(@$"{path}\{fileName}.txt");
             var random = new Random();
             var randomLine = lines[random.Next(lines.Length)];
             return randomLine;

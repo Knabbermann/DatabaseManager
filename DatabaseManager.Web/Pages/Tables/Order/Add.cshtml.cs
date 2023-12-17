@@ -1,11 +1,10 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
-using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Order
 {
-    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order cOrder) : CustomPageModel<AddModel>
+    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order cOrder, IConfiguration configuration) : CustomPageModel<AddModel>(configuration)
     {
         [BindProperty]
         public Models.Order COrder { get; set; } = cOrder;

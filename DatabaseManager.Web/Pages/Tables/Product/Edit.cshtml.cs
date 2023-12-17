@@ -4,7 +4,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Product
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Product? cProduct) : CustomPageModel<EditModel>
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Product? cProduct, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }

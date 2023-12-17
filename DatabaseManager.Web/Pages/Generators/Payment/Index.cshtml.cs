@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseManager.Web.Pages.Generators.Payment
 {
-    public class IndexModel(IUnitOfWork unitOfWork) : CustomPageModel<IndexModel>
+    public class IndexModel(IUnitOfWork unitOfWork, IConfiguration configuration) : CustomPageModel<IndexModel>(configuration)
     {
         [BindProperty]
         public int Quantity { get; set; }

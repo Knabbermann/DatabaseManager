@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Payment
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment? cPayment) : CustomPageModel<EditModel>
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment? cPayment, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }

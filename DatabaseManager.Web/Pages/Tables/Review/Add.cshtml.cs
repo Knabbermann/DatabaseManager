@@ -6,7 +6,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Review
 {
-    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review cReview) : CustomPageModel<AddModel>
+    public class AddModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review cReview, IConfiguration configuration) : CustomPageModel<AddModel>(configuration)
     {
         [BindProperty]
         public Models.Review CReview { get; set; } = cReview;

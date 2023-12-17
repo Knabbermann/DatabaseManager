@@ -5,7 +5,7 @@ using NToastNotify;
 
 namespace DatabaseManager.Web.Pages.Tables.Review
 {
-    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review? cReview) : CustomPageModel<EditModel>
+    public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review? cReview, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
