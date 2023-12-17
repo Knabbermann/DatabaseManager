@@ -21,5 +21,7 @@ namespace DatabaseManager.Models
         public string PaymentMethod { get; set; }
         public virtual Customer Customer { get; set; }
         public DateTime? GcRecord { get; set; }
+        [NotMapped]
+        public bool HasGcRecord => GcRecord != null;
     }
 }

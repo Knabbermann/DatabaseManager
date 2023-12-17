@@ -1,30 +1,31 @@
-﻿using System.Data;
-using DatabaseManager.DataAccess.DbContext;
+﻿using DatabaseManager.DataAccess.DbContext;
 using DatabaseManager.DataAccess.Repository.IRepository;
-using DatabaseManager.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace DatabaseManager.DataAccess.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly WebDbContext _webDbContext;
+        private readonly WebDbContextShard1 _webDbContextShard1;
+        private readonly WebDbContextShard2 _webDbContextShard2;
         private readonly IConfiguration _configuration;
 
-        public UnitOfWork(WebDbContext webDbContext, IConfiguration configuration)
+        public UnitOfWork(WebDbContextShard1 webDbContextShard1, WebDbContextShard2 webDbContextShard2, IConfiguration configuration)
         {
-            _webDbContext = webDbContext;
+            _webDbContextShard1 = webDbContextShard1;
+            _webDbContextShard2 = webDbContextShard2;
             _configuration = configuration;
 
-            Customer = new CustomerRepository(_webDbContext, this);
-            Order = new OrderRepository(_webDbContext, this);
-            Payment = new PaymentRepository(_webDbContext, this);
-            Product = new ProductRepository(_webDbContext, this);
-            Review = new ReviewRepository(_webDbContext, this);
-            LogWithId = new LogWithIdRepository(_webDbContext, this);
-            LogWithGuid = new LogWithGuidRepository(_webDbContext, this);
-            Performance = new PerformanceRepository(_webDbContext, this);
+            Customer = new CustomerRepository(_webDbContextShard1, webDbContextShard2, this);
+            Order = new OrderRepository(_webDbContextShard1, webDbContextShard2, this);
+            Payment = new PaymentRepository(_webDbContextShard1, webDbContextShard2, this);
+            Product = new ProductRepository(_webDbContextShard1, webDbContextShard2, this);
+            Review = new ReviewRepository(_webDbContextShard1, webDbContextShard2, this);
+            LogWithId = new LogWithIdRepository(_webDbContextShard1, this);
+            LogWithGuid = new LogWithGuidRepository(_webDbContextShard1, this);
+            Performance = new PerformanceRepository(_webDbContextShard1, this);
         }
 
         public ICustomerRepository Customer { get; }
@@ -36,14 +37,16 @@ namespace DatabaseManager.DataAccess.Repository
         public ILogWithGuidRepository LogWithGuid { get; }
         public IPerformanceRepository Performance { get; }
 
-        public void SaveChanges()
+        public void SaveChanges(int shardId = 1)
         {
-            _webDbContext.SaveChanges();
+            if(shardId == 1) _webDbContextShard1.SaveChanges();
+            else if (shardId == 2) _webDbContextShard2.SaveChanges();
+            else throw new ArgumentException("ShardId not known.");
         }
 
-        public IDbConnection GetDbConnection()
+        public IDbConnection GetDbConnection(int shardId = 1)
         {
-            var connectionString = _configuration.GetConnectionString("WebDbContextConnection");
+            var connectionString = _configuration.GetConnectionString("WebDbContextConnectionShard"+shardId);
             return new SqlConnection(connectionString);
         }
     }

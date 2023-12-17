@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using DatabaseManager.DataAccess.DbContext;
 using DatabaseManager.DataAccess.Repository.IRepository;
 using DatabaseManager.Models;
 using Microsoft.EntityFrameworkCore;
@@ -6,19 +7,27 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class Repository<T>(Microsoft.EntityFrameworkCore.DbContext webDbContext, IUnitOfWork unitOfWork) : IRepository<T> where T : class, IEntity
+    public class Repository<T>(WebDbContextShard1 webDbContextShard1, WebDbContextShard2 webDbContextShard2, IUnitOfWork unitOfWork) : IRepository<T> where T : class, IEntity
     {
-        internal DbSet<T> DbSet = webDbContext.Set<T>();
+        internal DbSet<T> DbSetShard1 = webDbContextShard1.Set<T>();
+        internal DbSet<T> DbSetShard2 = webDbContextShard2.Set<T>();
 
-        public int GetRowCount()
+        private DbSet<T> GetCurrentDbShard(int shardId)
         {
-            IQueryable<T> query = DbSet;
+            if (shardId == 1) return DbSetShard1;
+            if (shardId == 2) return DbSetShard2;
+            throw new ArgumentException("ShardId not known.");
+        }
+
+        public int GetRowCount(int shardId = 1)
+        {
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             return query.Count();
         }
 
-        public int GetColumnCount()
+        public int GetColumnCount(int shardId = 1)
         {
-            using var dbConnection = unitOfWork.GetDbConnection();
+            using var dbConnection = unitOfWork.GetDbConnection(shardId);
             dbConnection.Open();
             using var command = dbConnection.CreateCommand();
             command.CommandText = @"
@@ -27,16 +36,16 @@ namespace DatabaseManager.DataAccess.Repository
                 WHERE TABLE_NAME = @TableName";
             var parameter = command.CreateParameter();
             parameter.ParameterName = "@TableName";
-            parameter.Value = DbSet.EntityType.Name.Split('.')[^1] + "s";
+            parameter.Value = GetCurrentDbShard(shardId).EntityType.Name.Split('.')[^1] + "s";
             command.Parameters.Add(parameter);
             var columnCount = Convert.ToInt32(command.ExecuteScalar());
             dbConnection.Close();
             return columnCount;
         }
 
-        public int GetUsedSpace()
+        public int GetUsedSpace(int shardId = 1)
         {
-            using var dbConnection = unitOfWork.GetDbConnection();
+            using var dbConnection = unitOfWork.GetDbConnection(shardId);
             dbConnection.Open();
             using var command = dbConnection.CreateCommand();
             command.CommandText = @"
@@ -48,32 +57,32 @@ namespace DatabaseManager.DataAccess.Repository
                 WHERE t.NAME = @TableName";
             var parameter = command.CreateParameter();
             parameter.ParameterName = "@TableName";
-            parameter.Value = DbSet.EntityType.Name.Split('.')[^1] + "s";
+            parameter.Value = GetCurrentDbShard(shardId).EntityType.Name.Split('.')[^1] + "s";
             command.Parameters.Add(parameter);
             var usedSpace = Convert.ToInt32(command.ExecuteScalar());
             dbConnection.Close();
             return usedSpace;
         }
 
-        public IEnumerable<T> GetPagedEntities(int page, int pageSize)
+        public IEnumerable<T> GetPagedEntities(int page, int pageSize, int shardId = 1)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             return query.OrderBy(x => x.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
         }
 
-        public List<int> GetAllIds()
+        public List<int> GetAllIds(int shardId = 1)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             return query.Select(x => x.Id)
                 .ToList();
         }
 
-        public T? GetById(int id, string? includeProperties = null)
+        public T? GetById(int id, string? includeProperties = null, int shardId = 1)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             if (includeProperties != null)
             {
                 query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -83,9 +92,9 @@ namespace DatabaseManager.DataAccess.Repository
             return query.SingleOrDefault();
         }
 
-        public T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public T? GetSingleOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, int shardId = 1)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             if (includeProperties != null)
             {
                 query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -96,9 +105,9 @@ namespace DatabaseManager.DataAccess.Repository
             return query.SingleOrDefault();
         }
 
-        public T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, int shardId = 1)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             if (includeProperties != null)
             {
                 query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -109,9 +118,9 @@ namespace DatabaseManager.DataAccess.Repository
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, int shardId = 1)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query = GetCurrentDbShard(shardId);
             if (filter is not null) query = query.Where(filter);
             if (includeProperties != null)
             {
@@ -121,24 +130,24 @@ namespace DatabaseManager.DataAccess.Repository
             return query.ToList();
         }
 
-        public EntityEntry<T> Add(T entity, Guid cSessionId)
+        public EntityEntry<T> Add(T entity, Guid cSessionId, int shardId = 1)
         {
-            var uEntity = DbSet.Add(entity);
-            unitOfWork.SaveChanges();
+            var uEntity = GetCurrentDbShard(shardId).Add(entity);
+            unitOfWork.SaveChanges(shardId);
             unitOfWork.LogWithId.Add(new LogWithId { Model = uEntity.Entity.ToString().Split('.')[2], ModelId = uEntity.Entity.Id, SessionGuid = cSessionId });
             unitOfWork.LogWithGuid.Add(new LogWithGuid { Model = uEntity.Entity.ToString().Split('.')[2], ModelId = uEntity.Entity.Id, SessionGuid = cSessionId });
             unitOfWork.SaveChanges();
             return uEntity;
         }
 
-        public void Remove(T entity)
+        public void Remove(T entity, int shardId = 1)
         {
-            DbSet.Remove(entity);
+            GetCurrentDbShard(shardId).Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public void RemoveRange(IEnumerable<T> entities, int shardId = 1)
         {
-            DbSet.RemoveRange(entities);
+            GetCurrentDbShard(shardId).RemoveRange(entities);
         }
     }
 }

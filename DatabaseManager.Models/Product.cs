@@ -21,5 +21,7 @@ namespace DatabaseManager.Models
         [StringLength(50)]
         public string? Category { get; set; }
         public DateTime? GcRecord { get; set; }
+        [NotMapped]
+        public bool HasGcRecord => GcRecord != null;
     }
 }

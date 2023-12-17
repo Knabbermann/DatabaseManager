@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseManager.Web.Pages.Generators.Payment
@@ -41,7 +42,8 @@ namespace DatabaseManager.Web.Pages.Generators.Payment
                     if (random.Next(0, 100) <= GcRecordChance)
                         cPayment.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
-                unitOfWork.Payment.Add(cPayment, cSessionId);
+                var shardId = cPayment.HasGcRecord ? 2 : 1;
+                unitOfWork.Payment.Add(cPayment, cSessionId, shardId);
             }
         }
     }

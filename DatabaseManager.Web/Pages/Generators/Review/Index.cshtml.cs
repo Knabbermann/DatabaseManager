@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseManager.Web.Pages.Generators.Review
@@ -51,7 +52,8 @@ namespace DatabaseManager.Web.Pages.Generators.Review
                     if (random.Next(0, 100) < CustomerChance)
                         cReview.CustomerId = GetRandomFromIds(customerIds);
                 }
-                unitOfWork.Review.Add(cReview, cSessionId);
+                var shardId = cReview.HasGcRecord ? 2 : 1;
+                unitOfWork.Review.Add(cReview, cSessionId, shardId);
             }
         }
     }

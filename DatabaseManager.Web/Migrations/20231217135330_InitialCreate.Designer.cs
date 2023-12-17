@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatabaseManager.Web.Migrations
 {
-    [DbContext(typeof(WebDbContext))]
-    [Migration("20231127213153_removedOrderItem")]
-    partial class removedOrderItem
+    [DbContext(typeof(WebDbContextShard1))]
+    [Migration("20231217135330_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,56 @@ namespace DatabaseManager.Web.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("DatabaseManager.Models.LogWithGuid", b =>
+                {
+                    b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SessionGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Guid");
+
+                    b.ToTable("LogWithGuids");
+                });
+
+            modelBuilder.Entity("DatabaseManager.Models.LogWithId", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SessionGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LogWithIds");
+                });
+
             modelBuilder.Entity("DatabaseManager.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -189,6 +239,36 @@ namespace DatabaseManager.Web.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("DatabaseManager.Models.Performance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("AverageSeconds")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("RunAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Runs")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Table")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Performances");
                 });
 
             modelBuilder.Entity("DatabaseManager.Models.Product", b =>

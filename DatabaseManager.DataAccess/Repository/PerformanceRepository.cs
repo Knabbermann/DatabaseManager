@@ -4,7 +4,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class PerformanceRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : LogRepository<Performance>(webDbContext, unitOfWork), IPerformanceRepository
+    public class PerformanceRepository(WebDbContextShard1 webDbContext, IUnitOfWork unitOfWork) : LogRepository<Performance>(webDbContext, unitOfWork), IPerformanceRepository
     {
     }
 }

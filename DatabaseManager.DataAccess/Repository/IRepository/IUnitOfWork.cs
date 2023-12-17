@@ -12,7 +12,7 @@ namespace DatabaseManager.DataAccess.Repository.IRepository
         ILogWithIdRepository LogWithId { get; }
         ILogWithGuidRepository LogWithGuid { get; }
         IPerformanceRepository Performance { get; }
-        void SaveChanges();
-        IDbConnection GetDbConnection();
+        void SaveChanges(int shardId = 1);
+        IDbConnection GetDbConnection(int shardId = 1);
     }
 }

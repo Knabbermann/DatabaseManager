@@ -21,5 +21,7 @@ namespace DatabaseManager.Models
         public DateTime ReviewDate { get; set; }
         public virtual Customer Customer { get; set; }
         public DateTime? GcRecord { get; set; }
+        [NotMapped]
+        public bool HasGcRecord => GcRecord != null;
     }
 }

@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class CustomerRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Customer>(webDbContext, unitOfWork),
+    public class CustomerRepository(WebDbContextShard1 webDbContextShard1, WebDbContextShard2 webDbContextShard2, IUnitOfWork unitOfWork) : Repository<Customer>(webDbContextShard1, webDbContextShard2, unitOfWork),
         ICustomerRepository
     {
         public Customer? Update(Customer cCustomer)
@@ -16,7 +16,7 @@ namespace DatabaseManager.DataAccess.Repository
             var config = new MapperConfiguration(x => x.CreateMap<Customer, Customer>());
             var mapper = config.CreateMapper();
             mapper.Map(cCustomer, uCustomer);
-            webDbContext.Update(uCustomer);
+            webDbContextShard1.Update(uCustomer);
             return uCustomer;
         }
     }

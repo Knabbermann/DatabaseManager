@@ -4,7 +4,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class LogWithGuidRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : LogRepository<LogWithGuid>(webDbContext, unitOfWork), ILogWithGuidRepository
+    public class LogWithGuidRepository(WebDbContextShard1 webDbContext, IUnitOfWork unitOfWork) : LogRepository<LogWithGuid>(webDbContext, unitOfWork), ILogWithGuidRepository
     {
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseManager.DataAccess.DbContext
 {
-    public class WebDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class WebDbContextShard1 : Microsoft.EntityFrameworkCore.DbContext
     {
-        public WebDbContext(DbContextOptions<WebDbContext> options)
+        public WebDbContextShard1(DbContextOptions<WebDbContextShard1> options)
             : base(options)
         {
         }

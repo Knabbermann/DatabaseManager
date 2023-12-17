@@ -6,11 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("WebDbContextConnection")
-                       ?? throw new InvalidOperationException("Connection string 'WebDbContextConnection' not found.");
+var connectionStringShard1 = builder.Configuration.GetConnectionString("WebDbContextConnectionShard1")
+                       ?? throw new InvalidOperationException("Connection string 'WebDbContextConnectionShard1' not found.");
+var connectionStringShard2 = builder.Configuration.GetConnectionString("WebDbContextConnectionShard2")
+                             ?? throw new InvalidOperationException("Connection string 'WebDbContextConnectionShard2' not found.");
 
-builder.Services.AddDbContext<WebDbContext>(options =>
-    options.UseSqlServer(connectionString,
+builder.Services.AddDbContext<WebDbContextShard1>(options =>
+    options.UseSqlServer(connectionStringShard1,
+        optionsAction => optionsAction.MigrationsAssembly("DatabaseManager.Web")));
+builder.Services.AddDbContext<WebDbContextShard2>(options =>
+    options.UseSqlServer(connectionStringShard2,
         optionsAction => optionsAction.MigrationsAssembly("DatabaseManager.Web")));
 
 // Add services to the container.

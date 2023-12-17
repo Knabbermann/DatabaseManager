@@ -1,4 +1,5 @@
 using DatabaseManager.DataAccess.Repository.IRepository;
+using DatabaseManager.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseManager.Web.Pages.Generators.Product
@@ -47,7 +48,8 @@ namespace DatabaseManager.Web.Pages.Generators.Product
                     if (random.Next(0, 100) <= GcRecordChance) 
                         cProduct.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
-                unitOfWork.Product.Add(cProduct, cSessionId);
+                var shardId = cProduct.HasGcRecord ? 2 : 1;
+                unitOfWork.Product.Add(cProduct, cSessionId, shardId);
             }
         }
     }

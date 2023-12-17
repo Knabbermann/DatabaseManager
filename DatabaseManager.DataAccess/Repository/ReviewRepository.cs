@@ -5,7 +5,7 @@ using DatabaseManager.Models;
 
 namespace DatabaseManager.DataAccess.Repository
 {
-    public class ReviewRepository(WebDbContext webDbContext, IUnitOfWork unitOfWork) : Repository<Review>(webDbContext, unitOfWork), 
+    public class ReviewRepository(WebDbContextShard1 webDbContextShard1, WebDbContextShard2 webDbContextShard2, IUnitOfWork unitOfWork) : Repository<Review>(webDbContextShard1, webDbContextShard2, unitOfWork), 
         IReviewRepository
     {
         public Review? Update(Review cReview)
@@ -16,7 +16,7 @@ namespace DatabaseManager.DataAccess.Repository
             var config = new MapperConfiguration(x => x.CreateMap<Review, Review>());
             var mapper = config.CreateMapper();
             mapper.Map(cReview, uReview);
-            webDbContext.Update(uReview);
+            webDbContextShard1.Update(uReview);
             return uReview;
         }
     }

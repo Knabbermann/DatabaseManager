@@ -54,5 +54,7 @@ namespace DatabaseManager.Models
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public DateTime? GcRecord { get; set; }
+        [NotMapped]
+        public bool HasGcRecord => GcRecord != null;
     }
 }
