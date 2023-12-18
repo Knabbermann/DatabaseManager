@@ -4,7 +4,7 @@ namespace DatabaseManager.Models
 {
     public interface IEntity
     {
-        int Id { get; }
+        Guid Id { get; }
         public DateTime? GcRecord { get; set; }
         [NotMapped]
         public bool HasGcRecord => GcRecord != null;

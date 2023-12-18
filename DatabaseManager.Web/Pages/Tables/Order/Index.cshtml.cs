@@ -26,7 +26,7 @@ namespace DatabaseManager.Web.Pages.Tables.Order
             UsedSpace = unitOfWork.Order.GetUsedSpace();
         }
 
-        public IActionResult OnPostRemove(int id)
+        public IActionResult OnPostRemove(Guid id)
         {
             var order = unitOfWork.Order.GetFirstOrDefault(x => x.Id == id);
             if (order == null)

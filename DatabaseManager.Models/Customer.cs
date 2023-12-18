@@ -6,8 +6,7 @@ namespace DatabaseManager.Models
     public class Customer : IEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }

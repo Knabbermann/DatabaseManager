@@ -31,7 +31,7 @@ namespace DatabaseManager.Web.Pages.Generators.Review
         {
             var random = new Random();
             var cSessionId = Guid.NewGuid();
-            var customerIds = new List<int>();
+            var customerIds = new List<Guid>();
             if (SetReferences) customerIds = unitOfWork.Customer.GetAllIds();
             for (var i = 0; i < Quantity; i++)
             {

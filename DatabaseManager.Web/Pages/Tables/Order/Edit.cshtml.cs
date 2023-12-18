@@ -7,14 +7,14 @@ namespace DatabaseManager.Web.Pages.Tables.Order
     public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Order? cOrder, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [BindProperty]
         public Models.Order? COrder { get; set; } = cOrder;
 
         public IActionResult OnGet()
         {
-            if (Id == 0)
+            if (Id == Guid.Empty)
             {
                 toastNotification.AddErrorToastMessage("Id is null");
                 return RedirectToPage("/Tables/Order/Index");

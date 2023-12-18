@@ -60,7 +60,7 @@ namespace DatabaseManager.Web.Pages
             return new string(stringChars);
         }
 
-        protected static int GetRandomFromIds(List<int> ids)
+        protected static Guid GetRandomFromIds(List<Guid> ids)
         {
             var random = new Random();
             return ids[random.Next(0, ids.Count)];

@@ -26,7 +26,7 @@ namespace DatabaseManager.Web.Pages.Tables.Review
             UsedSpace = unitOfWork.Review.GetUsedSpace();
         }
 
-        public IActionResult OnPostRemove(int id)
+        public IActionResult OnPostRemove(Guid id)
         {
             var review = unitOfWork.Review.GetFirstOrDefault(x => x.Id == id);
             if (review == null)

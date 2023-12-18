@@ -8,14 +8,14 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
     public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Payment? cPayment, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [BindProperty]
         public Models.Payment? CPayment { get; set; } = cPayment;
 
         public IActionResult OnGet()
         {
-            if (Id == 0)
+            if (Id == Guid.Empty)
             {
                 toastNotification.AddErrorToastMessage("Id is null");
                 return RedirectToPage("/Tables/Payment/Index");

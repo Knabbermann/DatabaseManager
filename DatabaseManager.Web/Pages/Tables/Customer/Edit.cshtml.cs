@@ -9,14 +9,14 @@ namespace DatabaseManager.Web.Pages.Tables.Customer
     public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Customer? cCustomer, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [BindProperty]
         public Models.Customer? CCustomer { get; set; } = cCustomer;
 
         public IActionResult OnGet()
         {
-            if(Id == 0)
+            if(Id == Guid.Empty)
             {
                 toastNotification.AddErrorToastMessage("Id is null");
                 return RedirectToPage("/Tables/Customer/Index");

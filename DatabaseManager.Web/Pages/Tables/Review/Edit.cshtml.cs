@@ -8,14 +8,14 @@ namespace DatabaseManager.Web.Pages.Tables.Review
     public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Review? cReview, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [BindProperty]
         public Models.Review? CReview { get; set; } = cReview;
 
         public IActionResult OnGet()
         {
-            if (Id == 0)
+            if (Id == Guid.Empty)
             {
                 toastNotification.AddErrorToastMessage("Id is null");
                 return RedirectToPage("/Tables/Review/Index");

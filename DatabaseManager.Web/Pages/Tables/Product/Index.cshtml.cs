@@ -26,7 +26,7 @@ namespace DatabaseManager.Web.Pages.Tables.Product
             UsedSpace = unitOfWork.Product.GetUsedSpace();
         }
 
-        public IActionResult OnPostRemove(int id)
+        public IActionResult OnPostRemove(Guid id)
         {
             var product = unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
             if (product == null)

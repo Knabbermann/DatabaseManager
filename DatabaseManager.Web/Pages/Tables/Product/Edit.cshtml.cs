@@ -7,14 +7,14 @@ namespace DatabaseManager.Web.Pages.Tables.Product
     public class EditModel(IUnitOfWork unitOfWork, IToastNotification toastNotification, Models.Product? cProduct, IConfiguration configuration) : CustomPageModel<EditModel>(configuration)
     {
         [BindProperty(SupportsGet = true)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [BindProperty]
         public Models.Product? CProduct { get; set; } = cProduct;
 
         public IActionResult OnGet()
         {
-            if (Id == 0)
+            if (Id == Guid.Empty)
             {
                 toastNotification.AddErrorToastMessage("Id is null");
                 return RedirectToPage("/Tables/Product/Index");

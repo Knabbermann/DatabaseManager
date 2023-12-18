@@ -13,7 +13,7 @@ namespace DatabaseManager.Models
         [Required]
         public string Model { get; set; }
         [Required]
-        public int ModelId { get; set; }
+        public Guid ModelId { get; set; }
         [Required]
         public Guid SessionGuid { get; set; }
     }

@@ -6,11 +6,10 @@ namespace DatabaseManager.Models
     public class Payment : IEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }

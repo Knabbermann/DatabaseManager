@@ -6,11 +6,10 @@ namespace DatabaseManager.Models
     public class Review : IEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
         [Required]
         [StringLength(1000)]
         public string Content { get; set; }

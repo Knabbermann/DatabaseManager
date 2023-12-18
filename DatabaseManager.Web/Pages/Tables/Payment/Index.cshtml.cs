@@ -26,7 +26,7 @@ namespace DatabaseManager.Web.Pages.Tables.Payment
             UsedSpace = unitOfWork.Payment.GetUsedSpace();
         }
 
-        public IActionResult OnPostRemove(int id)
+        public IActionResult OnPostRemove(Guid id)
         {
             var payment = unitOfWork.Payment.GetFirstOrDefault(x => x.Id == id);
             if (payment == null)
