@@ -72,7 +72,7 @@ namespace DatabaseManager.Web.Pages.Performance
                     {
                         var cLastName = GetRandomFromList("lastNames");
                         var cEmail = $"{cFirstname}.{cLastName}" + GetRandomMailSuffix();
-                        return $"INSERT INTO Customers (FirstName, LastName, Email, IsActive) VALUES ('{cFirstname}', '{cLastName}', '{cEmail}', '{1}')";
+                        return $"INSERT INTO Customers (Id, FirstName, LastName, Email, IsActive) VALUES ('{Guid.NewGuid()}','{cFirstname}', '{cLastName}', '{cEmail}', '{1}')";
                     }
                     case "Update":
                     {
@@ -88,7 +88,7 @@ namespace DatabaseManager.Web.Pages.Performance
 
             if (Table.Equals("Order"))
             {
-                var cCustomerId = GetRandomFromIds(unitOfWork.Customer.GetAllIds());
+                var cCustomerId = GetRandomFromIds(unitOfWork.Customer.GetAllIds(1));
                 switch (Type)
                 {
                     case "Select":
@@ -97,7 +97,7 @@ namespace DatabaseManager.Web.Pages.Performance
                     {
                         var cOrderDate = GetRandomDateTime().ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
                         var cTotalAmount = GetRandomDecimal().ToString(CultureInfo.InvariantCulture);
-                        return $"INSERT INTO Orders (CustomerId, OrderDate, TotalAmount, Status) VALUES ('{cCustomerId}', '{cOrderDate}', '{cTotalAmount}', 'Pending')";
+                        return $"INSERT INTO Orders (Id, CustomerId, OrderDate, TotalAmount, Status) VALUES ('{Guid.NewGuid()}','{cCustomerId}', '{cOrderDate}', '{cTotalAmount}', 'Pending')";
                     }
                     case "Update":
                     {
@@ -113,7 +113,7 @@ namespace DatabaseManager.Web.Pages.Performance
 
             if (Table.Equals("Payment"))
             {
-                var cCustomerId = GetRandomFromIds(unitOfWork.Customer.GetAllIds());
+                var cCustomerId = GetRandomFromIds(unitOfWork.Customer.GetAllIds(1));
                 switch (Type)
                 {
                     case "Select":
@@ -122,7 +122,7 @@ namespace DatabaseManager.Web.Pages.Performance
                     {
                         var cPaymentDate = GetRandomDateTime().ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
                         var cAmount = GetRandomDecimal().ToString(CultureInfo.InvariantCulture);
-                        return $"INSERT INTO Payments (CustomerId, PaymentDate, Amount, PaymentMethod) VALUES ('{cCustomerId}', '{cPaymentDate}', '{cAmount}', 'BloomPay')";
+                        return $"INSERT INTO Payments (Id, CustomerId, PaymentDate, Amount, PaymentMethod) VALUES ('{Guid.NewGuid()}','{cCustomerId}', '{cPaymentDate}', '{cAmount}', 'BloomPay')";
                     }
                     case "Update":
                     {
@@ -147,7 +147,7 @@ namespace DatabaseManager.Web.Pages.Performance
                     {
                         var cPrice = GetRandomDecimal().ToString(CultureInfo.InvariantCulture);
                         var cStock = GetRandomInt(1, 9999);
-                        return $"INSERT INTO Products (Name, Price, Stock) VALUES ('{cName}', '{cPrice}', '{cStock}')";
+                        return $"INSERT INTO Products (Id, Name, Price, Stock) VALUES ('{Guid.NewGuid()}','{cName}', '{cPrice}', '{cStock}')";
                     }
                     case "Update":
                     {
@@ -163,7 +163,7 @@ namespace DatabaseManager.Web.Pages.Performance
 
             if (Table.Equals("Review"))
             {
-                var cCustomerId = GetRandomFromIds(unitOfWork.Customer.GetAllIds());
+                var cCustomerId = GetRandomFromIds(unitOfWork.Customer.GetAllIds(1));
                 switch (Type)
                 {
                     case "Select":
@@ -172,7 +172,7 @@ namespace DatabaseManager.Web.Pages.Performance
                     {
                         var cReviewDate = GetRandomDateTime().ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
                         var cRating = GetRandomInt(1, 5);
-                        return $"INSERT INTO Reviews (CustomerId, ReviewDate, Rating, Content) VALUES ('{cCustomerId}', '{cReviewDate}', '{cRating}', 'Hervorragende App! Sehr benutzerfreundlich und effizient.')";
+                        return $"INSERT INTO Reviews (Id, CustomerId, ReviewDate, Rating, Content) VALUES ('{Guid.NewGuid()}','{cCustomerId}', '{cReviewDate}', '{cRating}', 'Hervorragende App! Sehr benutzerfreundlich und effizient.')";
                     }
                     case "Update":
                     {
