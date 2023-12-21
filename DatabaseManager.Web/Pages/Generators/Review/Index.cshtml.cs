@@ -31,8 +31,14 @@ namespace DatabaseManager.Web.Pages.Generators.Review
         {
             var random = new Random();
             var cSessionId = Guid.NewGuid();
-            var customerIds = new List<Guid>();
-            if (SetReferences) customerIds = unitOfWork.Customer.GetAllIds();
+            var customerIdsShard1 = new List<Guid>();
+            var customerIdsShard2 = new List<Guid>();
+            if (SetReferences)
+            {
+                customerIdsShard1 = unitOfWork.Customer.GetAllIds(1);
+                customerIdsShard2 = unitOfWork.Customer.GetAllIds(2);
+            }
+            
             for (var i = 0; i < Quantity; i++)
             {
                 var cReview = new Models.Review
@@ -49,8 +55,8 @@ namespace DatabaseManager.Web.Pages.Generators.Review
 
                 if (SetReferences)
                 {
-                    if (random.Next(0, 100) < CustomerChance)
-                        cReview.CustomerId = GetRandomFromIds(customerIds);
+                    if (random.Next(0, 100) < CustomerChance) 
+                        cReview.CustomerId = GetRandomFromIds(cReview.HasGcRecord ? customerIdsShard2 : customerIdsShard1);
                 }
                 var shardId = cReview.HasGcRecord ? 2 : 1;
                 unitOfWork.Review.Add(cReview, cSessionId, shardId);

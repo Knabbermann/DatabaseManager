@@ -27,7 +27,8 @@ namespace DatabaseManager.Web.Pages.Generators.Order
         {
             var random = new Random();
             var cSessionId = Guid.NewGuid();
-            var customerIds = unitOfWork.Customer.GetAllIds();
+            var customerIdsShard1 = unitOfWork.Customer.GetAllIds(1);
+            var customerIdsShard2 = unitOfWork.Customer.GetAllIds(2);
             for (var i = 0; i < Quantity; i++)
             {
                 var cOrder = new Models.Order
@@ -35,13 +36,14 @@ namespace DatabaseManager.Web.Pages.Generators.Order
                     TotalAmount = GetRandomInt(),
                     OrderDate = OrderDate.Equals("Random") ? GetRandomDateTime() : DateTime.Now,
                     Status = Status.Equals("Random") ? GetRandomString() : GetRandomFromList("orderStatus"),
-                    CustomerId = GetRandomFromIds(customerIds)
                 };
                 if (FillOptionalProperties)
                 {
                     if (random.Next(0, 100) <= GcRecordChance)
                         cOrder.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
+
+                cOrder.CustomerId = GetRandomFromIds(cOrder.HasGcRecord ? customerIdsShard2 : customerIdsShard1);
                 var shardId = cOrder.HasGcRecord ? 2 : 1;
                 unitOfWork.Order.Add(cOrder, cSessionId, shardId);
             }

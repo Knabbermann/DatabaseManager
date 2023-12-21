@@ -18,11 +18,11 @@ namespace DatabaseManager.DataAccess.Repository
             _webDbContextShard2 = webDbContextShard2;
             _configuration = configuration;
 
-            Customer = new CustomerRepository(_webDbContextShard1, webDbContextShard2, this);
-            Order = new OrderRepository(_webDbContextShard1, webDbContextShard2, this);
-            Payment = new PaymentRepository(_webDbContextShard1, webDbContextShard2, this);
-            Product = new ProductRepository(_webDbContextShard1, webDbContextShard2, this);
-            Review = new ReviewRepository(_webDbContextShard1, webDbContextShard2, this);
+            Customer = new CustomerRepository(_webDbContextShard1, _webDbContextShard2, this);
+            Order = new OrderRepository(_webDbContextShard1, _webDbContextShard2, this);
+            Payment = new PaymentRepository(_webDbContextShard1, _webDbContextShard2, this);
+            Product = new ProductRepository(_webDbContextShard1, _webDbContextShard2, this);
+            Review = new ReviewRepository(_webDbContextShard1, _webDbContextShard2, this);
             LogWithId = new LogWithIdRepository(_webDbContextShard1, this);
             LogWithGuid = new LogWithGuidRepository(_webDbContextShard1, this);
             Performance = new PerformanceRepository(_webDbContextShard1, this);

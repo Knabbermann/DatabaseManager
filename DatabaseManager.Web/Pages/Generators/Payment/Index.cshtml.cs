@@ -27,7 +27,8 @@ namespace DatabaseManager.Web.Pages.Generators.Payment
         {
             var random = new Random();
             var cSessionId = Guid.NewGuid();
-            var customerIds = unitOfWork.Customer.GetAllIds();
+            var customerIdsShard1 = unitOfWork.Customer.GetAllIds(1);
+            var customerIdsShard2 = unitOfWork.Customer.GetAllIds(2);
             for (var i = 0; i < Quantity; i++)
             {
                 var cPayment = new Models.Payment
@@ -35,13 +36,13 @@ namespace DatabaseManager.Web.Pages.Generators.Payment
                     Amount = GetRandomInt(),
                     PaymentDate = PaymentDate.Equals("Random") ? GetRandomDateTime() : DateTime.Now,
                     PaymentMethod = PaymentMethod.Equals("Random") ? GetRandomString() : GetRandomFromList("preferredPaymentMethods"),
-                    CustomerId = GetRandomFromIds(customerIds)
                 };
                 if (FillOptionalProperties)
                 {
                     if (random.Next(0, 100) <= GcRecordChance)
                         cPayment.GcRecord = GcRecord.Equals("Random") ? GetRandomDateTime() : DateTime.Now;
                 }
+                cPayment.CustomerId = GetRandomFromIds(cPayment.HasGcRecord ? customerIdsShard2 : customerIdsShard1);
                 var shardId = cPayment.HasGcRecord ? 2 : 1;
                 unitOfWork.Payment.Add(cPayment, cSessionId, shardId);
             }
